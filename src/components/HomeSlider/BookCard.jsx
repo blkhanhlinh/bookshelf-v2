@@ -14,7 +14,7 @@ import React, { useEffect, useState, useContext } from 'react'
 import bookshelfColors from '@/styles/colors'
 import { BsStar, BsStarFill, BsStarHalf } from 'react-icons/bs'
 import { useDispatch } from 'react-redux'
-import { addToCart } from '@/redux/cart.slice'
+import { addToCart } from '@/redux/cartSlice'
 import Link from 'next/link'
 
 const CartButton = ({ book }) => {

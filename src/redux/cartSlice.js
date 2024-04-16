@@ -1,7 +1,4 @@
 import { createSlice } from '@reduxjs/toolkit'
-import { persistReducer } from 'redux-persist'
-import storage from 'redux-persist/lib/storage'
-import { orderCheckout } from './cartActions'
 
 const cartSlice = createSlice({
 	name: 'cart',
@@ -42,13 +39,7 @@ const cartSlice = createSlice({
 			const index = state.findIndex(item => item.id === action.payload)
 			state.splice(index, 1)
 		},
-
 	},
-	extraReducers: {
-		[orderCheckout.fulfilled]: (state, { payload }) => {
-			// state = []
-		}
-	}
 })
 
 export const cartReducer = cartSlice.reducer

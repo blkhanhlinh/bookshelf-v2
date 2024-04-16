@@ -1,6 +1,6 @@
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
-import { cartReducer } from "./cart.slice";
-import { filterReducer } from "./filter.slice";
+import { cartReducer } from "./cartSlice";
+import { filterReducer } from "./filterSlice";
 import { bookReducer } from "./books.slice";
 
 const reducer = combineReducers({

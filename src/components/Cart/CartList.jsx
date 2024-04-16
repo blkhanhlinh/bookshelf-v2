@@ -6,7 +6,7 @@ import {
 	removeFromCart,
 	incrementQuantity,
 	decrementQuantity,
-} from '@/redux/cart.slice'
+} from '@/redux/cartSlice'
 import { BsTrash } from 'react-icons/bs'
 import {
 	Spacer,

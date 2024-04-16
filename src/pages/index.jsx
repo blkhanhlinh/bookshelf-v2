@@ -21,7 +21,7 @@ export default function Home({ books }) {
 				<link rel='icon' type='image/svg+xml' href='/favicon.svg' />
 				<title>Bookshelf</title>
 			</Head>
-			<DesktopLayout isHomepage={true}>
+			<DesktopLayout isHomepage={true} className='font-sans'>
 				<Landing />
 				<Section books={books} />
 			</DesktopLayout>

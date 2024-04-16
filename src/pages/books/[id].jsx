@@ -27,21 +27,9 @@ import {
 	incrementQuantity,
 	decrementQuantity,
 	addSomeToCart,
-} from '@/redux/cart.slice'
+} from '@/redux/cartSlice'
 import { CardSlider } from '@/components/HomeSlider'
-
-async function fetchBooksFromAPI() {
-	try {
-		const response = await axios.get(`${API_URL}/books`)
-		if (response.status === 200) {
-			return response.data // Assuming the API returns an array of books
-		}
-		throw new Error('Failed to fetch books')
-	} catch (error) {
-		console.error('Error fetching books:', error)
-		return [] // Return an empty array if there's an error
-	}
-}
+import { getBooksFromAPI } from '@/api'
 
 export async function getBookById(bookId) {
 	try {
@@ -62,7 +50,8 @@ export async function getBookById(bookId) {
 }
 
 export async function getServerSideProps({ params }) {
-	const books = await fetchBooksFromAPI()
+	const books = await getBooksFromAPI()
+	console.log(books)
 	const bookId = params.id
 	const book = await getBookById(bookId)
 

@@ -1,7 +1,7 @@
 import { Box, Button, Card, CardFooter, Divider, Text } from '@chakra-ui/react'
 import ItemCart from './ItemCart'
 import { useDispatch, useSelector } from 'react-redux'
-import { removeFromCart } from '@/redux/cart.slice'
+import { removeFromCart } from '@/redux/cartSlice'
 import bookshelfColors from '@/styles/colors'
 
 export default function WidgetCart() {

@@ -34,8 +34,8 @@ const PromoCards = () => {
 					color={bookshelfColors.white}
 				>
 					<Heading fontSize={'20px'}>Book of the week</Heading>
-					<Heading fontSize={'2xl'}>The Fault In Our Stars</Heading>
-					<Text>John Green</Text>
+					<Heading fontSize={'2xl'}>And Then There Were None</Heading>
+					<Text>Agatha Christie</Text>
 					<Button
 						bgColor={bookshelfColors.secondary.main}
 						paddingX={'40px'}
@@ -82,7 +82,7 @@ const PromoCards = () => {
 							fontSize={'3xl'}
 							color={bookshelfColors.secondary.main}
 						>
-							“WETRIEDSE104”
+							"CS313UIT"
 						</Text>
 					</Heading>
 					<Flex>
