@@ -1,16 +1,16 @@
 import '@/styles/globals.css'
 import { Provider } from 'react-redux'
-import { wrapper } from '@/redux/store'
-import { PersistGate } from 'redux-persist/integration/react'
-import { persistStore } from 'redux-persist'
+// import { wrapper } from '@/redux/store'
+// import { PersistGate } from 'redux-persist/integration/react'
+// import { persistStore } from 'redux-persist'
 import { Spinner } from '@chakra-ui/react'
 import { ChakraProvider, extendTheme } from '@chakra-ui/react'
 import theme from '@/styles/theme'
 
 
 function App({ Component, pageProps }) {
-	const { store } = wrapper.useWrappedStore(pageProps)
-	const persistor = persistStore(store)
+	// const { store } = wrapper.useWrappedStore(pageProps)
+	// const persistor = persistStore(store)
 
 	const Loading = () => {
 		return (
@@ -23,11 +23,11 @@ function App({ Component, pageProps }) {
 
 	return (
 		<ChakraProvider theme={theme}>
-			<Provider store={store}>
-				<PersistGate persistor={persistor} loading={<Loading />}>
+			{/* <Provider> */}
+				{/* <PersistGate loading={<Loading />}> */}
 					<Component {...pageProps} />
-				</PersistGate>
-			</Provider>
+				{/* </PersistGate> */}
+			{/* </Provider> */}
 		</ChakraProvider>
 	)
 }

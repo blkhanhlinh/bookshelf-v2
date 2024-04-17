@@ -3,7 +3,7 @@ import Link from 'next/link'
 import { categories } from '@/constant/route'
 import { useRouter } from 'next/router'
 import bookshelfColors from '@/styles/colors'
-import PriceFilter from './PriceFilter'
+// import PriceFilter from './PriceFilter'
 import RatingFilter from './RatingFilter'
 import AuthorFilter from './AuthorFilter'
 
@@ -39,7 +39,7 @@ const FilterSidebar = ({ books }) => {
 				</Stack>
 			</Box>
             <Divider />
-			<PriceFilter books={books}/>
+			{/* <PriceFilter books={books}/> */}
 			<RatingFilter />
 			<AuthorFilter />
 		</Box>

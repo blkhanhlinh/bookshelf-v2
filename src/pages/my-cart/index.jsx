@@ -1,15 +1,15 @@
 import Head from 'next/head'
 import DesktopLayout from '@/components/Layout/DesktopLayout'
 import { useRouter } from 'next/router'
-import { useDispatch, useSelector } from 'react-redux'
+// import { useDispatch, useSelector } from 'react-redux'
 import { Flex, Spacer } from "@chakra-ui/react"
 import bookshelfColors from '@/styles/colors'
 import CartList from '@/components/Cart/CartList'
 
 function MyCart() {
 	const router = useRouter()
-	const { userInfo, loading, error } = useSelector(state => state.auth)
-	const dispatch = useDispatch()
+	// const { userInfo, loading, error } = useSelector(state => state.auth)
+	// const dispatch = useDispatch()
 
 	return (
 		<>

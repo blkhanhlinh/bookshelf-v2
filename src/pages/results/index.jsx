@@ -13,9 +13,10 @@ const Results = () => {
 	useEffect(() => {
 		const fetchBooks = async () => {
 			try {
-				const res = await axios.get(`${API_URL}/books`)
+				const res = await axios.get(`${API_URL}books`)
 				if (res.status === 200) {
 					const data = res.data
+					console.log(data)
 					const filteredBooks = data.filter(
 						book =>
 							book.title

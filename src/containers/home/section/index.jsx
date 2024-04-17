@@ -24,7 +24,7 @@ const links = [
 const Section = ({ books }) => {
 	return (
 		<>
-			{links.map(link => {
+			{/* {links.map(link => {
 				const categoryBooks = books.filter(
 					book => book.category === link.title
 				)
@@ -69,7 +69,7 @@ const Section = ({ books }) => {
 						<CardSlider books={categoryBooks} />
 					</Box>
 				)
-			})}
+			})} */}
 		</>
 	)
 }

@@ -18,7 +18,6 @@ import NextLink from 'next/link'
 import axios from 'axios'
 import { useRouter } from 'next/router'
 import { useDispatch, useSelector } from 'react-redux'
-import { userRegister } from '@/redux/auth/authActions'
 
 const RegisterForm = () => {
 	const router = useRouter()
@@ -31,7 +30,7 @@ const RegisterForm = () => {
 	const [passwordError, setPasswordError] = useState(false)
 	const [repeatPasswordError, setRepeatPasswordError] = useState(false)
 
-	const { loading, error } = useSelector((state) => state.auth)
+	// const { loading, error } = useSelector((state) => state.auth)
 	const dispatch = useDispatch()
 
 	const validateEmail = () => {
@@ -61,7 +60,7 @@ const RegisterForm = () => {
 
 	const handleSubmit = async e => {
 		e.preventDefault()
-		dispatch(userRegister({ email, username, password }))
+		// dispatch(userRegister({ email, username, password }))
 		router.push('/auth/login')
 	}
 

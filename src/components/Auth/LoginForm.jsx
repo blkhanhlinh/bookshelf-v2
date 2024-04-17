@@ -14,39 +14,39 @@ import {
 } from '@chakra-ui/react'
 import { useState, useEffect } from 'react'
 import NextLink from 'next/link'
-import { useRouter } from 'next/router'
-import { useDispatch, useSelector } from 'react-redux'
-import { userLogin } from '@/redux/auth/authActions'
+// import { useRouter } from 'next/router'
+// import { useDispatch, useSelector } from 'react-redux'
+// import { userLogin } from '@/redux/auth/authActions'
 
 
 const LoginForm = () => {
-	const router = useRouter()
-	const dispatch = useDispatch()
-	const toast = useToast()
+	// const router = useRouter()
+	// const dispatch = useDispatch()
+	// const toast = useToast()
 
 	const [username, setUsername] = useState('')
 	const [password, setPassword] = useState('')
 
-	const { loading, userInfo, error, success } = useSelector((state) => state.auth)
+	// const { loading, userInfo, error, success } = useSelector((state) => state.auth)
 
-	useEffect(() => {
-		if (error) {
-			toast({
-				title: 'An error occurred.',
-				description: error,
-				status: 'error',
-				duration: 2000,
-				isClosable: true,
-				position: 'bottom-right',
-				colorScheme: 'error',
-			})
-		}
-	}, [error])
+	// useEffect(() => {
+	// 	if (error) {
+	// 		toast({
+	// 			title: 'An error occurred.',
+	// 			description: error,
+	// 			status: 'error',
+	// 			duration: 2000,
+	// 			isClosable: true,
+	// 			position: 'bottom-right',
+	// 			colorScheme: 'error',
+	// 		})
+	// 	}
+	// }, [error])
 
 
 	const handleSubmit = async e => {
 		e.preventDefault()
-		dispatch(userLogin({ username, password}))
+		// dispatch(userLogin({ username, password}))
 		router.push('/')
 	}
 

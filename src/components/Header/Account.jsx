@@ -1,7 +1,7 @@
 import axios from 'axios'
 import { redirect } from 'next/dist/server/api-utils'
 import { useRouter } from 'next/router'
-import { logout } from '@/redux/auth/authSlice'
+// import { logout } from '@/redux/auth/authSlice'
 import { useDispatch, useSelector } from 'react-redux'
 import {
 	Popover,
@@ -17,12 +17,12 @@ import { MenuItem } from './MainNav'
 const Account = () => {
 	const router = useRouter()
 
-	const { userInfo, userToken } = useSelector(state => state.auth)
-	const dispatch = useDispatch()
+	// const { userInfo, userToken } = useSelector(state => state.auth)
+	// const dispatch = useDispatch()
 
 	const handleLogout = e => {
 		e.preventDefault()
-		dispatch(logout())
+		// dispatch(logout())
 	}
 
 	const Widget = () => {
@@ -52,7 +52,7 @@ const Account = () => {
 					>
 						My purchase
 					</Link>
-					{userInfo ? (
+					{/* {userInfo ? (
 						<Link
 							href=''
 							onClick={handleLogout}
@@ -67,7 +67,7 @@ const Account = () => {
 					>
 						Login
 					</Link>
-					)}
+					)} */}
 				</Stack>
 			</div>
 		)

@@ -11,28 +11,28 @@ import {
 	Text,
 } from '@chakra-ui/react'
 import bookshelfColors from '@/styles/colors'
-import { resetSort, sortBooksAsc, sortBooksDesc } from '@/redux/books.slice'
-import { useDispatch, useSelector } from 'react-redux'
+// import { resetSort, sortBooksAsc, sortBooksDesc } from '@/redux/books.slice'
+// import { useDispatch, useSelector } from 'react-redux'
 import { useEffect, useState } from 'react'
 
 const DisplayBooks = ({ books, isSearch = false }) => {
-  const dispatch = useDispatch();
-  const sortedbooks = useSelector(state => state.books);
+//   const dispatch = useDispatch();
+//   const sortedbooks = useSelector(state => state.books);
 	const router = useRouter()
 	const { searchQuery } = router.query
 	const [sortBy, setSortBy] = useState('')
 
-  useEffect(() => {
-    if (sortBy === 'ascending') {
-      dispatch(sortBooksAsc(books));
-    } else if (sortBy === 'descending') {
-      dispatch(sortBooksDesc(books));
-    }
+//   useEffect(() => {
+//     if (sortBy === 'ascending') {
+//       dispatch(sortBooksAsc(books));
+//     } else if (sortBy === 'descending') {
+//       dispatch(sortBooksDesc(books));
+//     }
 
-    return () => {
-      dispatch(resetSort(books));
-    };
-  }, [sortBy, books, dispatch]);
+//     return () => {
+//       dispatch(resetSort(books));
+//     };
+//   }, [sortBy, books, dispatch]);
 
 	return (
 		<Flex minW='max-content' marginBottom={8}>

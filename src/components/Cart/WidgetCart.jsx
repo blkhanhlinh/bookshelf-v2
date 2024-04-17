@@ -1,23 +1,23 @@
 import { Box, Button, Card, CardFooter, Divider, Text } from '@chakra-ui/react'
 import ItemCart from './ItemCart'
 import { useDispatch, useSelector } from 'react-redux'
-import { removeFromCart } from '@/redux/cartSlice'
+// import { removeFromCart } from '@/redux/cart.slice'
 import bookshelfColors from '@/styles/colors'
 
 export default function WidgetCart() {
-	const cart = useSelector(state => state.cart)
-	const dispatch = useDispatch()
-	const getTotalPrice = () => {
-		return cart.reduce(
-			(accumulator, item) => accumulator + item.quantity * item.unit_price,
-			0
-		)
-	}
+	// const cart = useSelector(state => state.cart)
+	// const dispatch = useDispatch()
+	// const getTotalPrice = () => {
+	// 	return cart.reduce(
+	// 		(accumulator, item) => accumulator + item.quantity * item.unit_price,
+	// 		0
+	// 	)
+	// }
 
 	const renderContent = function () {
 		return (
 			<Card>
-				<div className='flex flex-col gap-1'>
+				{/* <div className='flex flex-col gap-1'>
 					{cart.map((item, index) => (
 						<ItemCart
 							key={index}
@@ -33,7 +33,7 @@ export default function WidgetCart() {
 							Total: {getTotalPrice()} ₫
 						</Text>
 					</Box>
-				)}
+				)} */}
 				<CardFooter className='flex justify-center'>
 					<Button
 						width="full"
@@ -55,13 +55,13 @@ export default function WidgetCart() {
 			<header className='border-b border-gray-400 p-5'>
 				<strong>My Cart</strong>
 			</header>
-			{cart.length > 0 ? (
+			{/* {cart.length > 0 ? (
 				renderContent()
 			) : (
 				<div className='h-44 flex items-center justify-center text-info font-bold text-sm'>
 					No items in cart
 				</div>
-			)}
+			)} */}
 		</div>
 	)
 }

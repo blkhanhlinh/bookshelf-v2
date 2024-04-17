@@ -3,28 +3,14 @@ import { API_URL } from '@/constant/api';
 
 export async function getBooksFromAPI() {
   try {
-    const res = await axios.get(`${API_URL}/books`);
-    if (res.status === 200) {
-      const data = res.data;
-      return {
-        props: {
-          books: data,
-        },
-      };
+    const response = await axios.get(`${API_URL}books`);
+    if (response.status === 200) {
+      const data = response.data;
+      return data;
     }
-    // redirect to 500 page
-    return {
-      redirect: {
-        destination: '/500',
-        permanent: false,
-      },
-    };
+    throw new Error('Failed to fetch books');
   } catch (error) {
-    console.error("Error fetching books: ", error);
-    return {
-      props: {
-        books: [],
-      },
-    };
+    console.error('Error fetching books:', error);
+    return [];
   }
 }

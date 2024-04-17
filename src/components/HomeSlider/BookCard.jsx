@@ -13,13 +13,13 @@ import {
 import React, { useEffect, useState, useContext } from 'react'
 import bookshelfColors from '@/styles/colors'
 import { BsStar, BsStarFill, BsStarHalf } from 'react-icons/bs'
-import { useDispatch } from 'react-redux'
-import { addToCart } from '@/redux/cartSlice'
+// import { useDispatch } from 'react-redux'
+// import { addToCart } from '@/redux/cart.slice'
 import Link from 'next/link'
 
 const CartButton = ({ book }) => {
 	const [isHover, setIsHover] = useState(false)
-	const dispatch = useDispatch()
+	// const dispatch = useDispatch()
 	return (
 		<Box alignSelf={'center'}>
 			<Button
@@ -32,7 +32,7 @@ const CartButton = ({ book }) => {
 				}}
 				onMouseEnter={() => setIsHover(true)}
 				onMouseLeave={() => setIsHover(false)}
-				onClick={() => dispatch(addToCart(book))}
+				// onClick={() => dispatch(addToCart(book))}
 			>
 				<Box display={'flex'} px={8}>
 					<svg

@@ -22,18 +22,18 @@ import { API_URL } from '@/constant/api'
 import DesktopLayout from '@/components/Layout/DesktopLayout'
 import bookshelfColors from '@/styles/colors'
 import { Rating } from '@/components/HomeSlider/BookCard'
-import {
-	addToCart,
-	incrementQuantity,
-	decrementQuantity,
-	addSomeToCart,
-} from '@/redux/cartSlice'
+// import {
+// 	addToCart,
+// 	incrementQuantity,
+// 	decrementQuantity,
+// 	addSomeToCart,
+// } from '@/redux/cart.slice'
 import { CardSlider } from '@/components/HomeSlider'
 import { getBooksFromAPI } from '@/api'
 
 export async function getBookById(bookId) {
 	try {
-		const response = await axios.get(`${API_URL}/books/${bookId}`)
+		const response = await axios.get(`${API_URL}book_detail/${bookId}`)
 		if (response.status === 200) {
 			const data = response.data
 			return {
@@ -66,7 +66,7 @@ export async function getServerSideProps({ params }) {
 const categoryMap = {
 	'Best Sellers': 'best-sellers',
 	'New Arrivals': 'new-arrivals',
-	Fiction: 'fiction',
+	'Fiction': 'fiction',
 	'Business & Management': 'business-management',
 	'Self Help': 'self-help',
 	"Children's Books": 'children-books',
@@ -95,8 +95,8 @@ const BookDetailsPage = ({ book, books }) => {
 
 	const categoryLink = categoryMap[category] || category
 	const [quantity, setQuantity] = useState(1)
-	const dispatch = useDispatch()
-	const cart = useSelector(state => state.cart)
+	// const dispatch = useDispatch()
+	// const cart = useSelector(state => state.cart)
 
 	const Quantity = () => {
 		const add = () => {
@@ -120,14 +120,14 @@ const BookDetailsPage = ({ book, books }) => {
 		)
 	}
 
-	const addToCartHandler = () => {
-		const bookInCart = cart.find(item => item.id === id)
-		if (bookInCart) {
-			dispatch(incrementQuantity(id))
-		} else {
-			dispatch(addSomeToCart({ ...book.book, quantity }))
-		}
-	}
+	// const addToCartHandler = () => {
+	// 	const bookInCart = cart.find(item => item.id === id)
+	// 	if (bookInCart) {
+	// 		dispatch(incrementQuantity(id))
+	// 	} else {
+	// 		dispatch(addSomeToCart({ ...book.book, quantity }))
+	// 	}
+	// }
 
 	const relatedBooks = books.filter(
 		item => item.category === category && item.title !== title
@@ -190,7 +190,7 @@ const BookDetailsPage = ({ book, books }) => {
 						<Quantity />
 					</HStack>
 					<Button
-						onClick={addToCartHandler}
+						// onClick={addToCartHandler}
 						w='168px'
 						h={12}
 						color='white'

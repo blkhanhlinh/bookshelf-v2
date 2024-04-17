@@ -1,7 +1,7 @@
 import Head from 'next/head'
 import DesktopLayout from '@/components/Layout/DesktopLayout'
 import { useRouter } from 'next/router'
-import { useDispatch, useSelector } from 'react-redux'
+// import { useDispatch, useSelector } from 'react-redux'
 import { useState, useEffect } from 'react'
 import Sidebar from '@/components/Account/SideBar'
 import { Flex, Spacer } from "@chakra-ui/react"
@@ -9,8 +9,8 @@ import Content from '@/components/Account/Content'
 
 
 function Profile() {
-	const { userInfo, userToken, loading, error } = useSelector((state) => state.auth)
-	const dispatch = useDispatch()
+	// const { userInfo, userToken, loading, error } = useSelector((state) => state.auth)
+	// const dispatch = useDispatch()
 
 	// console.log(userInfo)
 

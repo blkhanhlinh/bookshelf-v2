@@ -4,9 +4,13 @@ import Section from '@/containers/home/section'
 import DesktopLayout from '@/components/Layout/DesktopLayout'
 import { getBooksFromAPI } from "@/api";
 
-export async function getServerSideProps() {
-    const books = await getBooksFromAPI();
-    return books;
+export async function getStaticProps() {
+	const books = await getBooksFromAPI();
+	return {
+		props: {
+			books,
+		},
+	};
 }
 
 export default function Home({ books }) {

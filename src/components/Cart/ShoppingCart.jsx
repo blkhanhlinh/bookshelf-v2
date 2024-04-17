@@ -12,13 +12,15 @@ import {
 import WidgetCart from './WidgetCart'
 import bookshelfColors from '@/styles/colors'
 import { MenuItem } from '../Header/MainNav'
-import { useSelector } from 'react-redux';
+// import { useSelector } from 'react-redux';
 
 export default function ShoppingCart() {
-	const cart = useSelector((state) => state.cart);
-	const getItemsCount = () => {
-		return cart.reduce((accumulator, item) => accumulator + item.quantity, 0);
-	}
+	// const cart = useSelector((state) => state.cart);
+	// const getItemsCount = () => {
+	// 	if (cart.items) {
+	// 		return cart.items.reduce((accumulator, item) => accumulator + item.quantity, 0);
+	// 	}
+	// }
 	return (
 		<Popover
 			isLazy
@@ -39,7 +41,7 @@ export default function ShoppingCart() {
 							/>
 						}
 					/>
-					{getItemsCount() > 0 && (
+					{/* {getItemsCount() > 0 && (
 						<Badge
 							mt={1}
 							px={1.5}
@@ -50,7 +52,7 @@ export default function ShoppingCart() {
 						>
 							{getItemsCount()}
 						</Badge>
-					)}
+					)} */}
 				</Flex>
 			</PopoverTrigger>
 			<PopoverContent>
