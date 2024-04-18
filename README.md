@@ -1,18 +1,18 @@
 # bookshelf-fe
 
-This is the frontend of the bookshelf project. It is built with React.js, Next.js, Redux, TailwindCSS and Chakra UI.
+This is the frontend of the bookshelf version 2 project with recommender using [Apriori algorithm](https://www.geeksforgeeks.org/apriori-algorithm/). It is built with React.js, Next.js, Redux, TailwindCSS and Chakra UI; backend with Django.
 
 ## Contributors
 
-1. [Bùi Lê Khánh Linh](https://github.com/blkhanhlinh) - Leader / Front-end / Design / Document
-2. [Nguyễn Thị Thanh Lan](https://github.com/emerald-lan) - Back-end / Front-end / Document
-3. [Nguyễn Duy Ngọc](https://github.com/ngocnd2402) - Document / Back-end
+1. [Bùi Lê Khánh Linh](https://github.com/blkhanhlinh)
+2. [Nguyễn Hoàng Long](https://github.com/LongNguyen1101)
+3. [Nguyễn Duy Ngọc](https://github.com/ngocnd2402)
 
 ## Project structure module
 
 Project compose 2 git submodules:
 1. Front-end: [current repository](./)
-2. Back-end: [./bookshelf-be](https://github.com/emerald-lan/bookshelf-be)
+2. Back-end: [./bookshelf-be](https://github.com/LongNguyen1101/back_end_bookshelf_CS313)
 
 ## Running product
 
@@ -30,7 +30,7 @@ yarn dev
 
 ## For contributors
 
-Please create a new branch for your contribution. DO NOT upload code to the `master` branch directly.
+Please create a new branch for your contribution. DO NOT upload code to the `main` branch directly.
 
 📌 Naming branch:
 
