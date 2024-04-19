@@ -1,9 +1,10 @@
+import { useDispatch } from 'react-redux'
 import { CardSlider } from '@/components/HomeSlider'
 import { Box, Flex, HStack, Heading, Text } from '@chakra-ui/react'
 import Link from 'next/link'
+import bookshelfColors from '@/styles/colors'
 import useBestSellers from '@/hooks/useBestSellers'
 import useNewArrivals from '@/hooks/useNewArrivals'
-import bookshelfColors from '@/styles/colors'
 
 const SectionHeader = ({ children }) => {
 	return (
@@ -13,32 +14,22 @@ const SectionHeader = ({ children }) => {
 	)
 }
 
-const links = [
-	{
-		title: 'Best Sellers',
-		link: '/best-sellers',
-	},
-	{
-		title: 'New Arrivals',
-		link: '/new-arrivals',
-	},
-]
-
-const Section = ({ books }) => {
+const Section = ({books}) => {
+	const links = ['Best Sellers', 'New Arrivals'];
 	const bestSellers = useBestSellers(books);
 	const newArrivals = useNewArrivals(books);
 	return (
 		<>
-			{links.map(link => {
+			{links.map((link, index) => {
 				return (
-					<Box key={link.title} paddingBottom={'80px'}>
+					<Box key={index} paddingBottom={'80px'}>
 						<Flex
 							justifyContent={'space-between'}
 							paddingBottom={4}
 							alignItems={'center'}
 						>
-							<SectionHeader>{link.title}</SectionHeader>
-							<Link href={link.link}>
+							<SectionHeader>{link}</SectionHeader>
+							<Link href={link}>
 								<HStack
 									alignItems={'center'}
 									className='hover:text-primary-main'
@@ -76,7 +67,7 @@ const Section = ({ books }) => {
 								</HStack>
 							</Link>
 						</Flex>
-						<CardSlider books={link.title === "Best Sellers" ? bestSellers : newArrivals} />
+						<CardSlider books={link === "Best Sellers" ? bestSellers : newArrivals} />
 					</Box>
 				)
 			})}

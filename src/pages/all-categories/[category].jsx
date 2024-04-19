@@ -4,62 +4,42 @@ import { API_URL } from '@/constant/api'
 import Breadcrumbs from '@/components/Breadcrumbs/Breadcrumbs'
 import DesktopLayout from '@/components/Layout/DesktopLayout'
 import DisplayBooks from '@/components/Layout/DisplayBooks'
+import { getBooksByCategory, getCategoryList } from '@/api'
 
-const CategoryPage = ({ books }) => {
+const CategoryPage = ({ books, category_list }) => {
 	const router = useRouter()
 	const { category } = router.query
-	const categoryName = categoryMap[category] || category
 
 	return (
 		<DesktopLayout isHomepage={false}>
-			<Breadcrumbs category={categoryName} />
-			<DisplayBooks books={books} />
+			<Breadcrumbs category={category} />
+			<DisplayBooks books={books} category_list={category_list}/>
 		</DesktopLayout>
 	)
 }
 
 export default CategoryPage
 
-const categoryMap = {
-	'best-sellers': 'Best Sellers',
-	'new-arrivals': 'New Arrivals', 
-	'fiction': 'Fiction',
-	'business-management': 'Business & Management',
-	'self-help': 'Self Help',
-	'children-books': "Children's Books",
-	'dictionaries-languages': 'Dictionaries & Languages',
-	'other-languages': 'Other Languages',
-}
 
 export async function getServerSideProps(ctx) {
+	const category = ctx.query.category
+	let books = [];
+	let category_list = [];
 	try {
-		const category = ctx.query.category
-		const dbCategory = categoryMap[category] || category
-		const res = await axios.get(`${API_URL}books`)
-		if (res.status === 201) {
-			const data = res.data
-			const filteredBooks = data.filter(
-				book => book.category === dbCategory
-			)
-			return {
-				props: {
-					books: filteredBooks,
-				},
-			}
-		}
-		// redirect to 500 page
-		return {
-			redirect: {
-				destination: '/500',
-				permanent: false,
-			},
-		}
+		books = await getBooksByCategory(category);
 	} catch (error) {
-		console.error('Error fetching books: ', error)
-		return {
-			props: {
-				books: [],
-			},
+		console.log('Error fetching books by category', error);
+	}
+
+	try {
+		category_list = await getCategoryList();
+	} catch (error) {
+		console.log('Error fetching category list', error);
+	}
+	return {
+		props: {
+			books,
+			category_list,
 		}
 	}
 }

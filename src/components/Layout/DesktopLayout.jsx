@@ -2,7 +2,7 @@ import { Box } from '@chakra-ui/react'
 import { Header } from '../Header'
 import { Footer } from '../Footer'
 
-const DesktopLayout = ({ children, isHomepage, showFooter = true, books }) => {
+const DesktopLayout = ({ children, category_list, isHomepage, showFooter = true, books }) => {
 	// console.log(showFooter)
 	return (
 		<>
@@ -10,7 +10,7 @@ const DesktopLayout = ({ children, isHomepage, showFooter = true, books }) => {
 				<Header showSubNav={isHomepage} books={books}/>
 				<main >{children}</main>
 			</Box>
-			{showFooter && <Footer />}
+			{showFooter && <Footer category_list={category_list} />}
 		</>
 	)
 }

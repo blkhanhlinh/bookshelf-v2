@@ -25,14 +25,16 @@ const MyCart = () => {
 				<Flex minW="max-content">
 					<CartList />
 				</Flex>
-				<Box paddingBottom={'104px'}>
-					<Flex justifyContent={'space-between'} paddingBottom={4}>
-						<Text fontWeight={'700'} fontSize={'3xl'}>
-							Related books
-						</Text>
-					</Flex>
-					<CardSlider books={recommendedBooks} />
-				</Box>
+				{recommendedBooks.length > 0 &&
+					<Box paddingBottom={'96px'}>
+						<Flex justifyContent={'space-between'} paddingBottom={4}>
+							<Text fontWeight={'700'} fontSize={'3xl'}>
+								Related books
+							</Text>
+						</Flex>
+						<CardSlider books={recommendedBooks} />
+					</Box>
+				}
 			</DesktopLayout>
 		</>
 	)

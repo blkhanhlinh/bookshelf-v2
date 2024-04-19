@@ -47,7 +47,6 @@ export async function getBookRecommendations(bookId) {
   try {
     const response = await axios.get(`${API_URL}book_recommend/${bookId}/`);
     if (response.status === 201) {
-      // console.log(response.data)
       return response.data;
     } else {
       throw new Error('Failed to fetch book recommendations');
@@ -68,6 +67,35 @@ export async function getBookCartRecommendation(bookIdList) {
     }
   } catch (error) {
     console.error('Error fetching book cart recommendations:', error);
+    throw error;
+  }
+}
+
+export async function getCategoryList() {
+  try {
+    const response = await axios.get(`${API_URL}category_list/`);
+    if (response.status === 201) {
+      console.log(response.data)
+      return response.data;
+    } else {
+      throw new Error('Failed to fetch category list');
+    }
+  } catch (error) {
+    console.error('Error fetching category list', error);
+    throw error;
+  }
+}
+
+export async function getBooksByCategory(category) {
+  try {
+    const response = await axios.get(`${API_URL}${category}/`);
+    if(response.status === 201) {
+      return response.data;
+    } else {
+    throw new Error('Failed to fetch book by category');
+    }
+  } catch (error) {
+    console.log('Error fetching books by category');
     throw error;
   }
 }

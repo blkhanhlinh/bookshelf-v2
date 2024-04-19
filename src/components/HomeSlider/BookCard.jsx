@@ -15,7 +15,6 @@ import bookshelfColors from '@/styles/colors'
 import { BsStar, BsStarFill, BsStarHalf } from 'react-icons/bs'
 import { useDispatch } from 'react-redux'
 import { addToCart } from '@/redux/cart/cartSlice'
-
 import Link from 'next/link'
 import { useVisibility } from '@/context/visibility'
 

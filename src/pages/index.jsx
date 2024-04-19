@@ -2,9 +2,9 @@ import Head from 'next/head'
 import Landing from '@/containers/home/landing'
 import Section from '@/containers/home/section'
 import DesktopLayout from '@/components/Layout/DesktopLayout'
-import { getBooksFromAPI } from '@/api'
+import { getBooksFromAPI, getCategoryList } from '@/api'
 
-const Home = ({ books }) => {
+const Home = ({ books, category_list }) => {
 	return (
 		<>
 			<Head>
@@ -16,7 +16,7 @@ const Home = ({ books }) => {
 				<link rel='icon' type='image/svg+xml' href='/favicon.svg' />
 				<title>Bookshelf</title>
 			</Head>
-			<DesktopLayout books={books} isHomepage={true} className='font-sans'>
+			<DesktopLayout books={books} category_list={category_list} isHomepage={true} className='font-sans'>
 				<Landing />
 				<Section books={books} />
 			</DesktopLayout>
@@ -25,13 +25,25 @@ const Home = ({ books }) => {
 }
 
 export async function getServerSideProps() {
+	let books = [];
+	let category_list = [];
 	try {
-	  const books = await getBooksFromAPI();
-	  return { props: { books } };
+		books = await getBooksFromAPI();
 	} catch (error) {
-	  console.error("Failed to fetch books:", error);
-	  return { props: { books: [] } };
+		console.log('Error fetching books by category', error);
+	}
+
+	try {
+		category_list = await getCategoryList();
+	} catch (error) {
+		console.log('Error fetching category list', error);
+	}
+	return {
+		props: {
+			books,
+			category_list,
+		}
 	}
 }
   
-export default Home
+export default Home;

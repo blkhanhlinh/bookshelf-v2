@@ -36,7 +36,7 @@ const CardSlider = ({ books }) => {
 			},
 		],
 	}
-	const limitedBooks = books.slice(0, 8);
+	const limitedBooks = books.slice(0, 12)
 	
 	return (
 		<Slider ref={ref} {...settings} className='pb-5'>
