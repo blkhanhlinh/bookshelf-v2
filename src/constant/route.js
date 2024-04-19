@@ -1,40 +1,15 @@
-export const categories = [
+export const essentialPath = [
     {
         path: '/all-categories',
         title: 'All Categories',
     },
     {
-        path: '/all-categories/best-sellers',
+        path: '/best-sellers',
         title: 'Best Sellers',
     },
     {
-        path: '/all-categories/new-arrivals',
+        path: '/new-arrivals',
         title: 'New Arrivals',
-    },
-    {
-        path: '/all-categories/fiction',
-        title: 'Fiction',
-    },
-    {
-        path: '/all-categories/business-management',
-        title: 'Business & Management',
-    },
-    {
-        path: '/all-categories/self-help',
-        title: 'Self Help',
-    },
-    {
-        path: '/all-categories/children-books',
-        title: "Children's Books",
-    },
-    {
-        path: '/all-categories/dictionaries-languages',
-        title: 'Dictionaries & Languages',
-    },
-    {
-
-        path: '/all-categories/other-languages',
-        title: 'Other Languages',
     },
 ]
 
