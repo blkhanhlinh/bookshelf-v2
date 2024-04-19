@@ -36,12 +36,12 @@ const CardSlider = ({ books }) => {
 			},
 		],
 	}
-	const limitedBooks = books.slice(0, 6)
+	const limitedBooks = books.slice(0, 8);
 	
 	return (
 		<Slider ref={ref} {...settings} className='pb-5'>
 			{limitedBooks.map(book => (
-				<BookCard key={book.id} book={book} />
+				<BookCard key={book.book_id} book={book} />
 			))}
 		</Slider>
 	)

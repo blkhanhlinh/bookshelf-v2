@@ -35,8 +35,8 @@ export async function getServerSideProps(ctx) {
 	try {
 		const category = ctx.query.category
 		const dbCategory = categoryMap[category] || category
-		const res = await axios.get(`${API_URL}/books`)
-		if (res.status === 200) {
+		const res = await axios.get(`${API_URL}books`)
+		if (res.status === 201) {
 			const data = res.data
 			const filteredBooks = data.filter(
 				book => book.category === dbCategory

@@ -2,18 +2,9 @@ import Head from 'next/head'
 import Landing from '@/containers/home/landing'
 import Section from '@/containers/home/section'
 import DesktopLayout from '@/components/Layout/DesktopLayout'
-import { getBooksFromAPI } from "@/api";
+import { getBooksFromAPI } from '@/api'
 
-export async function getStaticProps() {
-	const books = await getBooksFromAPI();
-	return {
-		props: {
-			books,
-		},
-	};
-}
-
-export default function Home({ books }) {
+const Home = ({ books }) => {
 	return (
 		<>
 			<Head>
@@ -25,10 +16,22 @@ export default function Home({ books }) {
 				<link rel='icon' type='image/svg+xml' href='/favicon.svg' />
 				<title>Bookshelf</title>
 			</Head>
-			<DesktopLayout isHomepage={true} className='font-sans'>
+			<DesktopLayout books={books} isHomepage={true} className='font-sans'>
 				<Landing />
 				<Section books={books} />
 			</DesktopLayout>
 		</>
 	)
 }
+
+export async function getServerSideProps() {
+	try {
+	  const books = await getBooksFromAPI();
+	  return { props: { books } };
+	} catch (error) {
+	  console.error("Failed to fetch books:", error);
+	  return { props: { books: [] } };
+	}
+}
+  
+export default Home

@@ -5,11 +5,11 @@
 
 // const PriceFilter = ({ books, setFilteredBooks }) => {
 // 	const values = [
-// 		{ value: '0-150000', text: '0 - 150.000 đ' },
-// 		{ value: '150000-300000', text: '150.000 - 300.000 đ' },
-// 		{ value: '300000-500000', text: '300.000 - 500.000 đ' },
-// 		{ value: '500000-700000', text: '500.000 - 700.000 đ' },
-// 		{ value: '700000-999999999999', text: '700.000 đ - above' },
+// 		{ value: '0-10', text: '0 - $10' },
+// 		{ value: '10-20', text: '$10 - $20' },
+// 		{ value: '20-30', text: '$20 - $30' },
+// 		{ value: '30-40', text: '$30 - $40' },
+// 		{ value: '40-50', text: '$40 - $50' },
 // 	]
 
 // 	const handleChange = value => {

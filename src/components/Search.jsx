@@ -37,9 +37,9 @@ const Search = () => {
 					justify='center'
 					align='center'
 				>
-					<InputGroup className='h-10'>
+					<InputGroup className='h-full'>
 						<Input
-							pr='4.0rem'
+							pr='4rem'
 							placeholder='Search books by title, author'
 							borderColor={bookshelfColors.primary.light}
 							focusBorderColor={bookshelfColors.primary.main}
@@ -50,6 +50,7 @@ const Search = () => {
 								opacity: 1,
 								color: bookshelfColors.grey[4],
 							}}
+							background={bookshelfColors.white}
 							width='100%'
 							id='searchInput'
 						/>

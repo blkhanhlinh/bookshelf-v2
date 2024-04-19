@@ -1,6 +1,9 @@
 import { CardSlider } from '@/components/HomeSlider'
 import { Box, Flex, HStack, Heading, Text } from '@chakra-ui/react'
 import Link from 'next/link'
+import useBestSellers from '@/hooks/useBestSellers'
+import useNewArrivals from '@/hooks/useNewArrivals'
+import bookshelfColors from '@/styles/colors'
 
 const SectionHeader = ({ children }) => {
 	return (
@@ -13,33 +16,40 @@ const SectionHeader = ({ children }) => {
 const links = [
 	{
 		title: 'Best Sellers',
-		link: '/all-categories/best-sellers',
+		link: '/best-sellers',
 	},
 	{
 		title: 'New Arrivals',
-		link: '/all-categories/new-arrivals',
+		link: '/new-arrivals',
 	},
 ]
 
 const Section = ({ books }) => {
+	const bestSellers = useBestSellers(books);
+	const newArrivals = useNewArrivals(books);
 	return (
 		<>
-			{/* {links.map(link => {
-				const categoryBooks = books.filter(
-					book => book.category === link.title
-				)
-
+			{links.map(link => {
 				return (
-					<Box key={link.title} paddingBottom={'104px'}>
+					<Box key={link.title} paddingBottom={'80px'}>
 						<Flex
 							justifyContent={'space-between'}
-							paddingBottom={8}
+							paddingBottom={4}
+							alignItems={'center'}
 						>
 							<SectionHeader>{link.title}</SectionHeader>
 							<Link href={link.link}>
-								<HStack alignItems={'center'}>
+								<HStack
+									alignItems={'center'}
+									className='hover:text-primary-main'
+									transition="transform 0.2s"
+									_hover={{
+										transform: 'translateX(4px)',
+									}}>
 									<Text>See all</Text>
-									<Box>
+									<Box
+										_hover={{stroke: bookshelfColors.primary.main}}
+									>
 										<svg
 											width='32'
 											height='32'
@@ -66,10 +76,10 @@ const Section = ({ books }) => {
 								</HStack>
 							</Link>
 						</Flex>
-						<CardSlider books={categoryBooks} />
+						<CardSlider books={link.title === "Best Sellers" ? bestSellers : newArrivals} />
 					</Box>
 				)
-			})} */}
+			})}
 		</>
 	)
 }

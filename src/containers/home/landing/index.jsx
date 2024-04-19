@@ -45,7 +45,7 @@ const Landing = () => {
 									bg: bookshelfColors.primary.dark,
 								}}
 								size={'lg'}
-								fontWeight={'normal'}
+								fontWeight={'bold'}
 								px={6}
 								py={3}
 								rightIcon={

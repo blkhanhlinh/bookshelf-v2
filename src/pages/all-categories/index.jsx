@@ -6,8 +6,18 @@ import { connect } from "react-redux";
 import DisplayBooks from "@/components/Layout/DisplayBooks";
 
 export async function getServerSideProps() {
-    const books = await getBooksFromAPI();
-    return books;
+    let books = [];
+    try {
+        books = await getBooksFromAPI();
+    } catch (error) {
+        console.error('Error fetching books:', error);
+    }
+
+    return {
+        props: {
+            books
+        }
+    }
 }
 
 const AllCategories = ({ books }) => {
@@ -17,7 +27,6 @@ const AllCategories = ({ books }) => {
                 <BreadcrumbItem>
                     <BreadcrumbLink href="/">Home</BreadcrumbLink>
                 </BreadcrumbItem>
-
                 <BreadcrumbItem isCurrentPage className="text-primary-main">
                     <BreadcrumbLink>All Categories</BreadcrumbLink>
                 </BreadcrumbItem>
@@ -27,4 +36,4 @@ const AllCategories = ({ books }) => {
     )
 }
 
-export default connect()(AllCategories);
+export default AllCategories;

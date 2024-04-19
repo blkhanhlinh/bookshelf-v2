@@ -13,13 +13,22 @@ import {
 import React, { useEffect, useState, useContext } from 'react'
 import bookshelfColors from '@/styles/colors'
 import { BsStar, BsStarFill, BsStarHalf } from 'react-icons/bs'
-// import { useDispatch } from 'react-redux'
-// import { addToCart } from '@/redux/cart.slice'
+import { useDispatch } from 'react-redux'
+import { addToCart } from '@/redux/cart/cartSlice'
+
 import Link from 'next/link'
+import { useVisibility } from '@/context/visibility'
 
 const CartButton = ({ book }) => {
-	const [isHover, setIsHover] = useState(false)
-	// const dispatch = useDispatch()
+	const [isHover, setIsHover] = useState(false);
+	const { setIsVisible } = useVisibility();
+	const dispatch = useDispatch();
+
+	const handleClick = () => {
+		dispatch(addToCart(book));
+		setIsVisible(true);
+	}
+
 	return (
 		<Box alignSelf={'center'}>
 			<Button
@@ -32,7 +41,7 @@ const CartButton = ({ book }) => {
 				}}
 				onMouseEnter={() => setIsHover(true)}
 				onMouseLeave={() => setIsHover(false)}
-				// onClick={() => dispatch(addToCart(book))}
+				onClick={handleClick}
 			>
 				<Box display={'flex'} px={8}>
 					<svg
@@ -114,6 +123,10 @@ export const Rating = ({ rating, numReviews }) => {
 }
 
 const BookCard = ({ book, isHomepage = true }) => {
+	const [randomNumber, setRandomNumber] = useState(0);
+	useEffect(() => {
+		setRandomNumber(Math.floor(Math.random() * 1000));
+	}, []);
 	return (
 		<Card
 			maxW={'sm'}
@@ -124,17 +137,22 @@ const BookCard = ({ book, isHomepage = true }) => {
 			flex={1}
 			direction={'column'}
 			justifyContent={'space-between'}
-			id={book.id}
+			id={book.book_id}
 			p={6}
+			_hover={{
+				shadow: 'lg',
+			}}
+			my={4}
 		>
 			<Box>
 				<Center>
-					<Link href={`/books/${book.id}`}>
+					<Link href={`/books/${book.book_id}`}>
 						<Image
-							src={book.cover}
+							src={book.thumbnail}
 							alt={book.title}
 							height={'194px'}
 							marginBottom={6}
+							borderRadius='md'
 						/>
 					</Link>
 				</Center>
@@ -142,45 +160,21 @@ const BookCard = ({ book, isHomepage = true }) => {
 			<Stack>
 				<Link
 					className='text-medium-regular pb-1'
-					href={`/books/${book.id}`}
+					href={`/books/${book.book_id}`}
 				>
 					{book.title}
 				</Link>
 				<Heading size={'md'} textColor={bookshelfColors.primary.main}>
-					{book.unit_price} ₫
+					<span>$</span>{book.price}
 				</Heading>
 			</Stack>
 			<HStack py={isHomepage ? 6 : 4}>
 				<Rating
-					rating={5} // temporarily
-					numReviews={1000} // temporarily
+					rating={book.average_rating}
+					numReviews={randomNumber}
 				/>
 			</HStack>
 			{isHomepage && <CartButton book={book} className='self-center' />}
-			{/* <Box className='flex justify-between items-center'>
-				<Box alignSelf={'center'}>
-					<Link onClick={() => handleClick()}>
-						<svg
-							xmlns='http://www.w3.org/2000/svg'
-							viewBox='0 0 24 24'
-							strokeWidth='1.5'
-							className='w-7 h-7'
-							stroke={bookshelfColors.primary.main}
-							fill={
-								isClicked
-									? bookshelfColors.primary.main
-									: 'none'
-							}
-						>
-							<path
-								strokeLinecap='round'
-								strokeLinejoin='round'
-								d='M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z'
-							/>
-						</svg>
-					</Link>
-				</Box>
-			</Box> */}
 		</Card>
 	)
 }

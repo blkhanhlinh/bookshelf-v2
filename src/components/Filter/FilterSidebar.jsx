@@ -22,7 +22,7 @@ const FilterSidebar = ({ books }) => {
 		>
 			<Box p={6}>
 				<Text className='text-xl font-bold'>Product Categories</Text>
-				<Stack paddingLeft={2} pt={2} dir='columns'>
+				{/* <Stack paddingLeft={2} pt={2} dir='columns'>
 					{categories.map((category, index) => (
 						<Link
 							href={category.path}
@@ -36,7 +36,7 @@ const FilterSidebar = ({ books }) => {
 							{category.title}
 						</Link>
 					))}{' '}
-				</Stack>
+				</Stack> */}
 			</Box>
             <Divider />
 			{/* <PriceFilter books={books}/> */}

@@ -12,8 +12,9 @@ import {
 } from '@chakra-ui/react'
 import Image from 'next/image'
 import { useRouter } from 'next/router'
-import { useState } from 'react'
-import { categories, services, account } from '@/constant/route'
+import { services, account } from '@/constant/route'
+// import useCategories from '@/hooks/useCategories'
+// import LoadingDots from '../LoadingDots'
 
 const ListHeader = ({ children }) => {
 	return (
@@ -106,6 +107,11 @@ const InfoIcon = () => {
 }
 
 const Footer = () => {
+	// const { categories, loading } = useCategories()
+	const router = useRouter()
+
+	// if (loading) return <LoadingDots />
+
 	return (
 		<Box
 			bg={bookshelfColors.primary.dark}
@@ -154,13 +160,13 @@ const Footer = () => {
 					</Stack>
 					<Stack spacing={2} align={'flex-start'}>
 						<ListHeader>Product Categories</ListHeader>
-						{categories.map((category, index) => {
+						{/* {categories.map((category, index) => {
 							return (
 								<Link key={index} href={category.path}>
 									{category.title}
 								</Link>
 							)
-						})}
+						})} */}
 					</Stack>
 					<Stack spacing={2} align={'flex-start'}>
 						<ListHeader>My Account</ListHeader>
