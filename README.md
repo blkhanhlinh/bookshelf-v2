@@ -7,6 +7,7 @@ This is the frontend of the bookshelf version 2 project with recommender using [
 1. [Bùi Lê Khánh Linh](https://github.com/blkhanhlinh)
 2. [Nguyễn Hoàng Long](https://github.com/LongNguyen1101)
 3. [Nguyễn Duy Ngọc](https://github.com/ngocnd2402)
+4. [Nguyễn Thành Nhân](https://github.com/ThanhNhan411)
 
 ## Project structure module
 
