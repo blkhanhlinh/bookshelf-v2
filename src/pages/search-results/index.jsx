@@ -5,7 +5,7 @@ import axios from 'axios'
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 
-const Results = () => {
+const SearchResults = () => {
 	const router = useRouter()
 	const { searchQuery } = router.query
 	const [books, setBooks] = useState([])
@@ -14,9 +14,8 @@ const Results = () => {
 		const fetchBooks = async () => {
 			try {
 				const res = await axios.get(`${API_URL}books`)
-				if (res.status === 200) {
+				if (res.status === 201) {
 					const data = res.data
-					console.log(data)
 					const filteredBooks = data.filter(
 						book =>
 							book.title
@@ -62,4 +61,4 @@ const Results = () => {
 	)
 }
 
-export default Results
+export default SearchResults;
