@@ -32,16 +32,16 @@ const EmailVerification = () => {
 
 export default EmailVerification
 
-export const getServerSideProps = async (context) => {
-	const backendURL = 'http://127.0.0.1:8000'
-    const { slug } = context.query
+// export const getServerSideProps = async (context) => {
+// 	const backendURL = 'http://127.0.0.1:8000'
+//     const { slug } = context.query
 
-	// console.log(`${backendURL}/verify/${slug[0]}/${slug[1]}`)
-    if (slug) {
-        // console.log(slug)
-		await axios.get(`${backendURL}/verify/${slug[0]}/${slug[1]}`)
-    }
-    return {
-        props: {},
-    }
-}
+// 	// console.log(`${backendURL}/verify/${slug[0]}/${slug[1]}`)
+//     if (slug) {
+//         // console.log(slug)
+// 		await axios.get(`${backendURL}/verify/${slug[0]}/${slug[1]}`)
+//     }
+//     return {
+//         props: {},
+//     }
+// }

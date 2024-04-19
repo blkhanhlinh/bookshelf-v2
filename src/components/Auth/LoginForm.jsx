@@ -14,13 +14,13 @@ import {
 } from '@chakra-ui/react'
 import { useState, useEffect } from 'react'
 import NextLink from 'next/link'
-// import { useRouter } from 'next/router'
+import { useRouter } from 'next/router'
 // import { useDispatch, useSelector } from 'react-redux'
 // import { userLogin } from '@/redux/auth/authActions'
 
 
 const LoginForm = () => {
-	// const router = useRouter()
+	const router = useRouter()
 	// const dispatch = useDispatch()
 	// const toast = useToast()
 

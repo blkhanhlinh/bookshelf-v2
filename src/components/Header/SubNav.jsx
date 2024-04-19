@@ -1,11 +1,26 @@
 import { Stack } from '@chakra-ui/react'
 import Link from 'next/link'
-import { useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
-import { categories } from '@/constant/route'
+import { essentialPath } from '@/constant/route'
 
-const SubNav = () => {
+const SubNav = ({ books }) => {
 	const router = useRouter()
+
+	const categoryCounts = books.reduce((acc, book) => {
+		const category = book.category.toLowerCase().replace(/ /g, '-');
+		acc[category] = (acc[category] || 0) + 1;
+		return acc;
+	}, {});
+
+	const categories = Object.entries(categoryCounts).map(([key, count]) => ({
+		path: `/all-categories/${key}`,
+		title: key.replace(/-/g, ' '),
+		count
+	}));
+
+	const topCategories = categories.sort((a, b) => b.count - a.count).slice(0, 7);
+
+	const allPaths = essentialPath.concat(topCategories);
 
 	return (
 		<nav id='sub-nav'>
@@ -16,15 +31,14 @@ const SubNav = () => {
 				justify='space-between'
 				align='center'
 			>
-				{categories.map((category, index) => (
+				{allPaths.map((category, index) => (
 					<Link
-						href={category.path}
+						href={`${category.path}`}
 						key={index}
-						className={`text-base ${
-							router.pathname === category.path
+						className={`text-base capitalize ${router.pathname === `/all-categories/${category.path}`
 								? 'text-primary-main'
 								: 'hover:text-primary-main'
-						}`}
+							}`}
 					>
 						{category.title}
 					</Link>

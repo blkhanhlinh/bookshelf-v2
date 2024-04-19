@@ -16,10 +16,6 @@ import {
 import bookshelfColors from '@/styles/colors'
 import { removeFromCart, increaseQuantity, decreseQuantity } from '@/redux/cart/cartSlice'
 import React, { useState, useEffect } from 'react';
-import Slider from 'react-slick'
-import 'slick-carousel/slick/slick.css'
-import 'slick-carousel/slick/slick-theme.css'
-import { BookCard } from '../HomeSlider';
 import { getBookCartRecommendation } from '@/api'
 import { clearRecommendations, setRecommendations } from '@/redux/recommendation/recommendationSlice'
 

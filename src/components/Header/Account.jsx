@@ -42,13 +42,13 @@ const Account = () => {
 				>
 					<Link
 						href='/account/profile'
-						className='text-regular-regular hover:text-primary-main'
+						className='text-regular-regular hover:text-primary-main no-underline'
 					>
 						My profile
 					</Link>
 					<Link
 						href='/purchases'
-						className='text-regular-regular hover:text-primary-main'
+						className='text-regular-regular hover:text-primary-main no-underline'
 					>
 						My purchase
 					</Link>
@@ -81,7 +81,7 @@ const Account = () => {
 			className='lg:relative flex flex-col justify-center'
 		>
 			<PopoverTrigger>
-				<Flex direction='column' align='center'>
+				<Flex direction='column' align='center' className='w-max'>
 					<MenuItem
 						path='/account/profile'
 						name='Account'
