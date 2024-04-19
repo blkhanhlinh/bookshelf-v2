@@ -16,14 +16,19 @@ Project compose 2 git submodules:
 2. Back-end: [./bookshelf-be](https://github.com/LongNguyen1101/back_end_bookshelf_CS313)
 
 ## Running product
+1. Clone this repo:
+```bash
+git clone https://github.com/blkhanhlinh/bookshelf-v2
+cd bookshelf-v2
+```
 
-1. Install dependencies:
+2. Install dependencies:
 
 ```bash
 yarn install
 ```
 
-2. Run the development server:
+3. Run the development server:
 
 ```bash
 yarn dev
