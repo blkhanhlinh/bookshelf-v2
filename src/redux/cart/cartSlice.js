@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { parse } from 'cookie';
 
 export const cartSlice = createSlice({
     name: 'cart',
@@ -26,12 +27,19 @@ export const cartSlice = createSlice({
         },
         addSomeToCart: (state, action) => {
             const newItem = action.payload;
+            const existingItem = state.items.find(item => item.book_id === newItem.book_id);
+            if (!existingItem) {
+                state.items.push({
+                    ...newItem,
+                    totalPrice: parseFloat((newItem.price * newItem.quantity).toFixed(2)),
+                });
+            } else {
+                existingItem.quantity += newItem.quantity;
+                existingItem.totalPrice += newItem.price * newItem.quantity;
+            }
             state.totalQuantity += newItem.quantity;
-            state.totalAmount = parseFloat((state.totalAmount + newItem.price * newItem.quantity).toFixed(2));
-            state.items.push({
-                ...newItem,
-                totalPrice: newItem.price * newItem.quantity,
-            });
+            state.totalAmount += newItem.price * newItem.quantity;
+            state.totalAmount = parseFloat(state.totalAmount.toFixed(2));
         },
         increaseQuantity: (state, action) => {
             const id = action.payload;
