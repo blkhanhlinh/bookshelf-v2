@@ -4,10 +4,11 @@ import Image from 'next/image'
 import { BsTrash } from 'react-icons/bs'
 
 const ItemCart = ({ item, removeItem }) => {
+	console.log(item)
 	return (
 		<div className='flex items-center justify-between gap-2 p-5'>
 			<Image
-				src={item.cover}
+				src={item.thumbnail}
 				alt={item.title}
 				width={48}
 				height={48}
@@ -19,17 +20,17 @@ const ItemCart = ({ item, removeItem }) => {
 				</strong>
 				<p className='text-info flex gap-1'>
 					<span className='text-primary-main text-regular-bold'>
-						{item.unit_price} ₫ x {item.quantity}
+						<span>$</span>{item.price} x {item.quantity}
 					</span>
 					<span className='text-primary-main text-regular-bold'>
-						= {item.unit_price * item.quantity} ₫
+						= <span>$</span>{item.price * item.quantity}
 					</span>
 				</p>
 			</div>
 			<IconButton
 				aria-label='Remove item from cart'
 				icon={<BsTrash size={18} color={bookshelfColors.info} />}
-				onClick={() => removeItem(item.id)}
+				onClick={() => removeItem(item.book_id)}
 				rounded='lg'
 				variant='ghost'
 			/>
