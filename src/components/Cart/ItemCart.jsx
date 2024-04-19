@@ -4,7 +4,7 @@ import Image from 'next/image'
 import { BsTrash } from 'react-icons/bs'
 
 const ItemCart = ({ item, removeItem }) => {
-	console.log(item)
+	// console.log(item)
 	return (
 		<div className='flex items-center justify-between gap-2 p-5'>
 			<Image
