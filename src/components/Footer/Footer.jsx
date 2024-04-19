@@ -13,7 +13,6 @@ import {
 import Image from 'next/image'
 import { useRouter } from 'next/router'
 import { services, account } from '@/constant/route'
-// import useCategories from '@/hooks/useCategories'
 // import LoadingDots from '../LoadingDots'
 
 const ListHeader = ({ children }) => {
@@ -106,7 +105,7 @@ const InfoIcon = () => {
 	)
 }
 
-const Footer = () => {
+const Footer = ({ category_list }) => {
 	// const { categories, loading } = useCategories()
 	const router = useRouter()
 
@@ -160,13 +159,13 @@ const Footer = () => {
 					</Stack>
 					<Stack spacing={2} align={'flex-start'}>
 						<ListHeader>Product Categories</ListHeader>
-						{/* {categories.map((category, index) => {
+						{category_list.slice(0, 8).map((category, index) => {
 							return (
-								<Link key={index} href={category.path}>
-									{category.title}
+								<Link key={index} href={category}>
+									{category}
 								</Link>
 							)
-						})} */}
+						})}
 					</Stack>
 					<Stack spacing={2} align={'flex-start'}>
 						<ListHeader>My Account</ListHeader>

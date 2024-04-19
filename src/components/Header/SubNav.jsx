@@ -7,14 +7,13 @@ const SubNav = ({ books }) => {
 	const router = useRouter()
 
 	const categoryCounts = books.reduce((acc, book) => {
-		const category = book.category.toLowerCase().replace(/ /g, '-');
-		acc[category] = (acc[category] || 0) + 1;
+		acc[book.category] = (acc[book.category] || 0) + 1;
 		return acc;
 	}, {});
 
 	const categories = Object.entries(categoryCounts).map(([key, count]) => ({
 		path: `/all-categories/${key}`,
-		title: key.replace(/-/g, ' '),
+		title: key,
 		count
 	}));
 
