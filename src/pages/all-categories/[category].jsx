@@ -11,7 +11,7 @@ const CategoryPage = ({ books, category_list }) => {
 	const { category } = router.query
 
 	return (
-		<DesktopLayout isHomepage={false}>
+		<DesktopLayout isHomepage={false} books={books} category_list={category_list}>
 			<Breadcrumbs category={category} />
 			<DisplayBooks books={books} category_list={category_list}/>
 		</DesktopLayout>

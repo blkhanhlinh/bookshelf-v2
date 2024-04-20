@@ -6,8 +6,23 @@ import bookshelfColors from '@/styles/colors'
 import CartList from '@/components/Cart/CartList'
 import { useSelector } from 'react-redux'
 import { CardSlider } from '@/components/HomeSlider'
+import { getCategoryList } from '@/api'
 
-const MyCart = () => {
+export async function getServerSideProps() {
+	let category_list = [];
+	try {
+		category_list = await getCategoryList();
+	} catch (error) {
+		console.log('Error fetching category list', error);
+	}
+	return {
+		props: {
+			category_list,
+		}
+	}
+}
+
+const MyCart = ({ category_list }) => {
 	const recommendedBooks = useSelector(state => state.recommendation.books)
 
 	return (
@@ -21,7 +36,7 @@ const MyCart = () => {
 				<link rel='icon' type='image/svg+xml' href='/favicon.svg' />
 				<title>My Cart</title>
 			</Head>
-			<DesktopLayout isHomepage={false}>
+			<DesktopLayout isHomepage={false} category_list={category_list}>
 				<Flex minW="max-content">
 					<CartList />
 				</Flex>

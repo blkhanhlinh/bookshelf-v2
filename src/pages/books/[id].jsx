@@ -22,12 +22,13 @@ import DesktopLayout from '@/components/Layout/DesktopLayout';
 import bookshelfColors from '@/styles/colors';
 import { Rating } from '@/components/HomeSlider/BookCard';
 import { CardSlider } from '@/components/HomeSlider';
-import { getBookById, getBookRecommendations } from '@/api';
+import { getBookById, getBookRecommendations, getCategoryList } from '@/api';
 import { increaseQuantity, addSomeToCart } from '@/redux/cart/cartSlice';
 
 export async function getServerSideProps({ params }) {
 	let book = null;
 	let relatedBooks = [];
+	let category_list = [];
 	const bookId = params.id;
 	try {
 		book = await getBookById(bookId);
@@ -50,15 +51,22 @@ export async function getServerSideProps({ params }) {
 		console.error('Error fetching related books:', error);
 	}
 
+	try {
+		category_list = await getCategoryList();
+	} catch (error) {
+		console.error('Error fetching category list:', error);
+	}
+
 	return {
 		props: {
 			book,
 			relatedBooks,
+			category_list,
 		},
 	}
 }
 
-const BookDetailsPage = ({ book, relatedBooks }) => {
+const BookDetailsPage = ({ book, relatedBooks, category_list }) => {
 	if (!book) {
 		return <div>Loading...</div>
 	}
@@ -117,7 +125,7 @@ const BookDetailsPage = ({ book, relatedBooks }) => {
 	}
 
 	return (
-		<DesktopLayout isHomepage={false}>
+		<DesktopLayout isHomepage={false} category_list={category_list}>
 			<Head>
 				<title>{title} - Bookshelf</title>
 			</Head>

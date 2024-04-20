@@ -29,7 +29,7 @@ export async function getServerSideProps() {
 
 const AllCategories = ({ books, category_list }) => {
     return (
-        <DesktopLayout isHomepage={false}>
+        <DesktopLayout isHomepage={false} books={books} category_list={category_list}>
             <Breadcrumb pt="4">
                 <BreadcrumbItem>
                     <BreadcrumbLink href="/">Home</BreadcrumbLink>

@@ -4,8 +4,24 @@ import { API_URL } from '@/constant/api'
 import axios from 'axios'
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
+import { getCategoryList } from '@/api'
 
-const SearchResults = () => {
+export async function getServerSideProps() {
+	let category_list = []
+	try {
+		category_list = await getCategoryList()
+	} catch (error) {
+		console.error('Error fetching category list:', error)
+	}
+
+	return {
+		props: {
+			category_list,
+		},
+	}
+}
+
+const SearchResults = ({ category_list }) => {
 	const router = useRouter()
 	const { searchQuery } = router.query
 	const [books, setBooks] = useState([])
@@ -42,7 +58,7 @@ const SearchResults = () => {
 
 	if (!searchQuery && books.length === 0) {
 		return (
-			<DesktopLayout isHomepage={false}>
+			<DesktopLayout isHomepage={false} category_list={category_list}>
 				<DisplayBooks />
 			</DesktopLayout>
 		)
@@ -50,7 +66,7 @@ const SearchResults = () => {
 
 	return (
 		<div>
-			<DesktopLayout isHomepage={false}>
+			<DesktopLayout isHomepage={false} category_list={category_list}>
 				{books.length > 0 ? (
 					<DisplayBooks books={books} isSearch={true} />
 				) : (
