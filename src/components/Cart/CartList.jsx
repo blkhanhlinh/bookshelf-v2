@@ -85,7 +85,7 @@ const CartList = () => {
 			"orderItems": cart.map(item => item.book_id),
 			"quantity": cart.map(item => item.quantity)
 		}
-		console.log(checkoutInfo)
+		// console.log(checkoutInfo)
 		// dispatch(orderCheckout({ userToken, userInfo, checkoutInfo }))
 		cart.map(item => dispatch(removeFromCart(item.book_id)))
 	}

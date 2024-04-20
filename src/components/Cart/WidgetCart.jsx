@@ -12,7 +12,7 @@ export default function WidgetCart() {
 	const totalAmount = useSelector(selectCartTotalAmount);
 	const router = useRouter();
 
-	console.log(cart);
+	// console.log(cart);
 
 	const renderContent = function () {
 		return (

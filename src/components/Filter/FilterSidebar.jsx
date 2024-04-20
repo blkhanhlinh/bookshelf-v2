@@ -79,11 +79,11 @@ const FilterSidebar = ({ books, category_list }) => {
 						);
 					})}
 					{category_list.length > 6 && (
-						<Text onClick={handleshowMore} mt={3} color={bookshelfColors.secondary.main} _hover={bookshelfColors.secondary.light} display='flex' flexDirection='row' className='w-full justify-center'>
+						<Text onClick={handleshowMore} mt={3} color={bookshelfColors.secondary.main} _hover={bookshelfColors.secondary.light} display='flex' flexDirection='row' className='w-full justify-center cursor-pointer'>
 							{showMore ? "Show less" : "Show more"}
 							<span>
 								<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-									<path d="M16 10L12 14L8 10" stroke="#FF9C28" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+									<path d="M16 10L12 14L8 10" stroke="#FF9C28" stroke-width="2" strokeLinecap="round" strokeLinejoin="round" />
 								</svg>
 							</span>
 						</Text>
