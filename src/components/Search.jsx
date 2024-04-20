@@ -7,6 +7,7 @@ import {
 	InputRightElement,
 	Stack,
 	Box,
+	Flex,
 } from '@chakra-ui/react';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
@@ -43,8 +44,26 @@ const Search = () => {
 	const handleFormSubmit = event => {
 		event.preventDefault();
 		router.push(`/results?searchQuery=${encodeURIComponent(searchQuery)}`);
-
 	}
+
+	const highlightText = (text, highlight) => {
+		const parts = text.split(new RegExp(`(${highlight})`, 'gi'));
+		return parts.map((part, index) =>
+			part.toLowerCase() === highlight.toLowerCase() ? (
+				<span key={index} style={{ fontWeight: 'bold' }}>
+					{part}
+				</span>
+			) : (
+				part
+			)
+		);
+	};
+
+	const handleSearchResultClick = (bookId) => {
+		setSearchQuery('');
+		router.push(`/books/${bookId}`);
+	}
+
 	return (
 		<Stack width={'50%'}>
 			<form onSubmit={handleFormSubmit} width='50vw'>
@@ -100,12 +119,21 @@ const Search = () => {
 					</InputGroup>
 				</Stack>
 			</form>
-			<Box position={'absolute'}>
-				{results.slice(0,6).map((result, index) => (
-					<div key={index}>
-						{result.title}
-					</div>
-				))}
+			<Box position={'relative'} className='top-0 left-0 right-0 bottom-0'>
+				<Flex
+					zIndex={1000}
+					className='w-full absolute bg-white block break-words flex-1 flex-col shadow-lg'
+				>
+					{results.slice(0, 6).map((result, index) => (
+						<div
+							key={result.index}
+							className='w-full p-3 cursor-pointer hover:bg-gray-100'
+							onClick={() => handleSearchResultClick(result.book_id)}
+						>
+							{highlightText(result.title, searchQuery)}
+						</div>
+					))}
+				</Flex>
 			</Box>
 		</Stack>
 	)
