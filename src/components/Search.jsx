@@ -1,32 +1,49 @@
-import { useRouter } from 'next/router'
-import bookshelfColors from '@/styles/colors'
+import { useRouter } from 'next/router';
+import bookshelfColors from '@/styles/colors';
 import {
 	Button,
 	Input,
 	InputGroup,
 	InputRightElement,
 	Stack,
-} from '@chakra-ui/react'
-import { getBooksFromAPI } from '@/api'
-
-export async function getServerSideProps() {
-	const books = await getBooksFromAPI()
-	return books
-}
+	Box,
+} from '@chakra-ui/react';
+import { useEffect, useState } from 'react';
+import axios from 'axios';
+import { API_URL } from '@/constant/api';
+import { debounce } from 'lodash';
 
 const Search = () => {
+	const [searchQuery, setSearchQuery] = useState('');
+	const [results, setResults] = useState([]);
 	const router = useRouter()
-	const handleFormSubmit = event => {
-		event.preventDefault()
-		const searchQuery = event.target.elements.searchInput.value.trim()
 
-		if (searchQuery === '') {
-			router.push('/')
-		} else {
-			router.push(
-				`/results?searchQuery=${encodeURIComponent(searchQuery)}`
-			)
+	const fetchSearchResults = debounce(async (query) => {
+		if (!query) {
+			setResults([]);
+			return;
 		}
+		try {
+			const response = await axios.get(`${API_URL}books/${query}/`);
+			setResults(response.data);
+		} catch (error) {
+			console.error('Error fetching search results:', error);
+			setResults([]);
+		}
+	}, 300);
+
+	useEffect(() => {
+		fetchSearchResults(searchQuery);
+	}, [searchQuery]);
+
+	const handleChange = event => {
+		setSearchQuery(event.target.value);
+	}
+
+	const handleFormSubmit = event => {
+		event.preventDefault();
+		router.push(`/results?searchQuery=${encodeURIComponent(searchQuery)}`);
+
 	}
 	return (
 		<Stack width={'50%'}>
@@ -53,6 +70,8 @@ const Search = () => {
 							background={bookshelfColors.white}
 							width='100%'
 							id='searchInput'
+							value={searchQuery}
+							onChange={handleChange}
 						/>
 						<InputRightElement width='4.5rem'>
 							<Button
@@ -81,6 +100,13 @@ const Search = () => {
 					</InputGroup>
 				</Stack>
 			</form>
+			<Box position={'absolute'}>
+				{results.slice(0,6).map((result, index) => (
+					<div key={index}>
+						{result.title}
+					</div>
+				))}
+			</Box>
 		</Stack>
 	)
 }

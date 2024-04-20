@@ -31,7 +31,7 @@ export async function getBookById(bookId) {
 
 export async function searchBooks(searchQuery) {
   try {
-    const response = await axios.get(`${API_URL}books/?search=${searchQuery}`);
+    const response = await axios.get(`${API_URL}books/${encodeURIComponent(searchQuery)}/`);
     if (response.status === 201) {
       return response.data;
     } else {
@@ -75,7 +75,7 @@ export async function getCategoryList() {
   try {
     const response = await axios.get(`${API_URL}category_list/`);
     if (response.status === 201) {
-      console.log(response.data)
+      // console.log(response.data)
       return response.data;
     } else {
       throw new Error('Failed to fetch category list');

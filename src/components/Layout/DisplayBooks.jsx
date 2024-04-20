@@ -40,15 +40,15 @@ const DisplayBooks = ({ books, category_list, isSearch = false }) => {
 			<Spacer />
 			<Stack direction='column' py={{ base: '6', lg: '8' }}>
 				{isSearch && (
-					<Box className='w-[880px] mb-6'>
+					<Box className='w-full mb-6'>
 						<Box
 							bg={bookshelfColors.primary.light}
 							borderColor={bookshelfColors.primary.main}
 							borderWidth={1}
-							p={6}
+							p={4}
 							rounded={4}
 						>
-							Results for "{searchQuery}" query here &#129303;
+							Results for "{searchQuery}" here &#129303;
 						</Box>
 					</Box>
 				)}
