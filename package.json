@@ -1,5 +1,5 @@
 {
-	"name": "bookshelf",
+	"name": "bookshelf-v2",
 	"version": "0.1.0",
 	"private": true,
 	"scripts": {
@@ -39,8 +39,5 @@
 	},
 	"resolutions": {
 		"react-focus-lock": "2.11.0"
-	},
-	"devDependencies": {
-		"@next/eslint-plugin-next": "^14.2.2"
 	}
 }
