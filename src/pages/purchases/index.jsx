@@ -5,7 +5,7 @@ import { useRouter } from 'next/router'
 import { useState, useEffect } from 'react'
 import Sidebar from '@/components/Account/SideBar'
 import { Flex, Spacer } from "@chakra-ui/react"
-import Content from '@/components/Account/Content'
+// import Content from '@/components/Account/Content'
 
 
 function Profile() {
