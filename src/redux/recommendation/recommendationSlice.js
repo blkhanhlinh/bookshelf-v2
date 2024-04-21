@@ -9,12 +9,13 @@ export const recommendationSlice = createSlice({
         setRecommendations: (state, action) => {
             state.books = action.payload
         },
-        clearRecommendations: (state) => {
+        clearRecommendations: state => {
             state.books = []
         },
     },
 })
 
-export const { setRecommendations, clearRecommendations } = recommendationSlice.actions
+export const { setRecommendations, clearRecommendations } =
+    recommendationSlice.actions
 
 export default recommendationSlice.reducer

@@ -12,13 +12,15 @@ export const persistConfig = {
 
 const persistedReducer = persistReducer(persistConfig, rootReducer)
 
-const makeStore = () => configureStore({
-    reducer: persistedReducer,
-    middleware: (getDefaultMiddleware) => getDefaultMiddleware({
-        serializableCheck: false,
-        devTools: process.env.NODE_ENV !== 'production',
-    }),
-})
+const makeStore = () =>
+    configureStore({
+        reducer: persistedReducer,
+        middleware: getDefaultMiddleware =>
+            getDefaultMiddleware({
+                serializableCheck: false,
+                devTools: process.env.NODE_ENV !== 'production',
+            }),
+    })
 
 export const persistedStore = () => {
     const store = makeStore()
