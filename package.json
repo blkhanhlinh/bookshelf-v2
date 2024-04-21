@@ -36,5 +36,8 @@
 		"redux-persist": "^6.0.0",
 		"slick-carousel": "^1.8.1",
 		"tailwindcss": "3.3.1"
+	},
+	"resolutions": {
+		"react-focus-lock": "2.11.0"
 	}
 }
