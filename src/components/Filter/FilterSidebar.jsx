@@ -115,7 +115,7 @@ const FilterSidebar = ({ books, category_list }) => {
 									<path
 										d='M16 10L12 14L8 10'
 										stroke='#FF9C28'
-										stroke-width='2'
+										strokeWidth='2'
 										strokeLinecap='round'
 										strokeLinejoin='round'
 									/>
