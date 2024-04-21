@@ -11,28 +11,32 @@ import {
 	Text,
 } from '@chakra-ui/react'
 import bookshelfColors from '@/styles/colors'
-import { sortBooksAsc, sortBooksDesc, resetSort } from '@/redux/filter/filterSlice'
+import {
+	sortBooksAsc,
+	sortBooksDesc,
+	resetSort,
+} from '@/redux/filter/filterSlice'
 import { useDispatch, useSelector } from 'react-redux'
 import { useEffect, useState } from 'react'
 
 const DisplayBooks = ({ books, category_list, isSearch = false }) => {
-	const dispatch = useDispatch();
-	const sortedbooks = useSelector(state => state.books);
+	const dispatch = useDispatch()
+	const sortedbooks = useSelector(state => state.books)
 	const router = useRouter()
 	const { searchQuery } = router.query
 	const [sortBy, setSortBy] = useState('')
 
 	useEffect(() => {
 		if (sortBy === 'ascending') {
-			dispatch(sortBooksAsc(books));
+			dispatch(sortBooksAsc(books))
 		} else if (sortBy === 'descending') {
-			dispatch(sortBooksDesc(books));
+			dispatch(sortBooksDesc(books))
 		}
 
 		return () => {
-			dispatch(resetSort(books));
-		};
-	}, [sortBy, books, dispatch]);
+			dispatch(resetSort(books))
+		}
+	}, [sortBy, books, dispatch])
 
 	return (
 		<Flex minW='max-content' marginBottom={8}>
@@ -54,11 +58,7 @@ const DisplayBooks = ({ books, category_list, isSearch = false }) => {
 				)}
 				<HStack spacing={6} mb={6}>
 					<Text w={'full'}>Sort by:</Text>
-					<Select
-						placeholder='Price'
-						colorScheme='teal'
-						bg={'white'}
-					>
+					<Select placeholder='Price' colorScheme='teal' bg={'white'}>
 						<option value='ascending'>Price: Low to high</option>
 						<option value='descending'>Price: High to low</option>
 					</Select>
@@ -78,4 +78,4 @@ const DisplayBooks = ({ books, category_list, isSearch = false }) => {
 	)
 }
 
-export default DisplayBooks;
+export default DisplayBooks

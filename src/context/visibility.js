@@ -1,11 +1,11 @@
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useState } from "react"
 
-const VisibilityContext = createContext();
+const VisibilityContext = createContext()
 
-export const useVisibility = () => useContext(VisibilityContext);
+export const useVisibility = () => useContext(VisibilityContext)
 
 export const VisibilityProvider = ({ children }) => {
-    const [isVisible, setIsVisible] = useState(true);
+    const [isVisible, setIsVisible] = useState(true)
     return (
         <VisibilityContext.Provider value={{ isVisible, setIsVisible }}>
             {children}

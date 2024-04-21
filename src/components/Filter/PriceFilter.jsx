@@ -18,7 +18,7 @@ const PriceFilter = ({ books, setFilteredBooks }) => {
 			const price = book.unit_price
 			return price >= parseInt(min) && price <= parseInt(max)
 		})
-		setFilteredBooks(filteredBooks);
+		setFilteredBooks(filteredBooks)
 	}
 
 	useEffect(() => {
@@ -58,14 +58,15 @@ const PriceFilter = ({ books, setFilteredBooks }) => {
 
 const mapStateToProps = state => {
 	return {
-		filteredBooks: state.filteredBooks
+		filteredBooks: state.filteredBooks,
 	}
 }
 
 const mapDispatchToProps = dispatch => {
 	return {
-		setFilteredBooks: (filteredBooks) => dispatch({ type: 'SET_FILTERED_BOOKS', filteredBooks })
+		setFilteredBooks: filteredBooks =>
+			dispatch({ type: 'SET_FILTERED_BOOKS', filteredBooks }),
 	}
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(PriceFilter);
+export default connect(mapStateToProps, mapDispatchToProps)(PriceFilter)

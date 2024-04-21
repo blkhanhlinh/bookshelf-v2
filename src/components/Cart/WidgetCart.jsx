@@ -3,16 +3,19 @@ import { Box, Button, Card, CardFooter, Divider, Text } from '@chakra-ui/react'
 import ItemCart from './ItemCart'
 import { useDispatch, useSelector } from 'react-redux'
 import { removeFromCart } from '@/redux/cart/cartSlice'
-import { selectCartItems, selectCartTotalAmount } from '@/redux/cart/cartSelectors'
+import {
+	selectCartItems,
+	selectCartTotalAmount,
+} from '@/redux/cart/cartSelectors'
 import bookshelfColors from '@/styles/colors'
 
 export default function WidgetCart() {
-	const dispatch = useDispatch();
-	const cart = useSelector(selectCartItems);
-	const totalAmount = useSelector(selectCartTotalAmount);
-	const router = useRouter();
+	const dispatch = useDispatch()
+	const cart = useSelector(selectCartItems)
+	const totalAmount = useSelector(selectCartTotalAmount)
+	const router = useRouter()
 
-	// console.log(cart);
+	// console.log(cart)
 
 	const renderContent = function () {
 		return (
@@ -23,21 +26,32 @@ export default function WidgetCart() {
 							key={index}
 							item={item}
 							index={index}
-							removeItem={() => dispatch(removeFromCart(item.book_id))}
-
+							removeItem={() =>
+								dispatch(removeFromCart(item.book_id))
+							}
 						/>
 					))}
 				</div>
 				{cart.length && (
-					<Box mt={1} mx={5} paddingTop={4} marginLeft="auto" float="right">
-						<Text color={bookshelfColors.secondary.main} className='text-medium-bold'>
-							Total: <span>$</span><span>{totalAmount}</span>
+					<Box
+						mt={1}
+						mx={5}
+						paddingTop={4}
+						marginLeft='auto'
+						float='right'
+					>
+						<Text
+							color={bookshelfColors.secondary.main}
+							className='text-medium-bold'
+						>
+							Total: <span>$</span>
+							<span>{totalAmount}</span>
 						</Text>
 					</Box>
 				)}
 				<CardFooter className='flex justify-center'>
 					<Button
-						width="full"
+						width='full'
 						onClick={() => {
 							window.location.href = '/my-cart'
 						}}

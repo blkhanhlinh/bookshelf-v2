@@ -1,5 +1,13 @@
 import React, { useState } from 'react'
-import { Box, Button, Checkbox, CheckboxGroup, Divider, Stack, Text } from '@chakra-ui/react'
+import {
+	Box,
+	Button,
+	Checkbox,
+	CheckboxGroup,
+	Divider,
+	Stack,
+	Text,
+} from '@chakra-ui/react'
 import Link from 'next/link'
 import { categories } from '@/constant/route'
 import { useRouter } from 'next/router'
@@ -10,20 +18,24 @@ import AuthorFilter from './AuthorFilter'
 
 const FilterSidebar = ({ books, category_list }) => {
 	const router = useRouter()
-	const [showMore, setShowMore] = useState(false);
+	const [showMore, setShowMore] = useState(false)
 
-	category_list = ['All Categories', 'Best Sellers', 'New Arrivals'].concat(category_list);
-	const currentPath = `/all-categories/${router.query.category}`;
+	category_list = ['All Categories', 'Best Sellers', 'New Arrivals'].concat(
+		category_list
+	)
+	const currentPath = `/all-categories/${router.query.category}`
 
-	const displayedCategories = showMore ? category_list : category_list.slice(0, 10);
+	const displayedCategories = showMore
+		? category_list
+		: category_list.slice(0, 10)
 
 	const handleshowMore = () => {
-		setShowMore(!showMore);
+		setShowMore(!showMore)
 	}
 
 	return (
 		<Box
-			h="full"
+			h='full'
 			w='290px'
 			bg='white'
 			rounded='xl'
@@ -36,54 +48,77 @@ const FilterSidebar = ({ books, category_list }) => {
 				<Text className='text-xl font-bold'>Product Categories</Text>
 				<Stack paddingLeft={2} pt={2} dir='columns' spacing={4}>
 					{displayedCategories.map((cate, index) => {
-						const catePath = cate === 'All Categories' ? '/all-categories' : `/all-categories/${cate}`;
-						return (
-							cate !== 'All Categories' ? (
-								(
-									<Link
-										href={catePath}
-										key={index}
-										passHref
-									>
-										<Text
-											as="a"
-											py="1"
-											px="2"
-											fontSize="base"
-											fontWeight={currentPath === catePath ? 'bold' : 'normal'}
-											_hover={{ color: bookshelfColors.primary.main }}
-											color={currentPath === catePath ? bookshelfColors.primary.dark : bookshelfColors.info}
-										>
-											{cate}
-										</Text>
-									</Link>
-								)
-							) : (
-								<Link
-									href={catePath}
-									key={index}
-									passHref
+						const catePath =
+							cate === 'All Categories'
+								? '/all-categories'
+								: `/all-categories/${cate}`
+						return cate !== 'All Categories' ? (
+							<Link href={catePath} key={index} passHref>
+								<Text
+									as='a'
+									py='1'
+									px='2'
+									fontSize='base'
+									fontWeight={
+										currentPath === catePath
+											? 'bold'
+											: 'normal'
+									}
+									_hover={{
+										color: bookshelfColors.primary.main,
+									}}
+									color={
+										currentPath === catePath
+											? bookshelfColors.primary.dark
+											: bookshelfColors.info
+									}
 								>
-									<Text
-										as="a"
-										py="1"
-										fontSize="base"
-										fontWeight={'bold'}
-										_hover={{ color: bookshelfColors.primary.main }}
-										color={bookshelfColors.info}
-									>
-										{cate}
-									</Text>
-								</Link>
-							)
-						);
+									{cate}
+								</Text>
+							</Link>
+						) : (
+							<Link href={catePath} key={index} passHref>
+								<Text
+									as='a'
+									py='1'
+									fontSize='base'
+									fontWeight={'bold'}
+									_hover={{
+										color: bookshelfColors.primary.main,
+									}}
+									color={bookshelfColors.info}
+								>
+									{cate}
+								</Text>
+							</Link>
+						)
 					})}
 					{category_list.length > 6 && (
-						<Text onClick={handleshowMore} mt={3} color={bookshelfColors.secondary.main} _hover={bookshelfColors.secondary.light} display='flex' flexDirection='row' className='w-full justify-center cursor-pointer'>
-							{showMore ? "Show less" : "Show more"}
+						<Text
+							onClick={handleshowMore}
+							mt={3}
+							color={bookshelfColors.secondary.main}
+							_hover={bookshelfColors.secondary.light}
+							display='flex'
+							flexDirection='row'
+							className='w-full justify-center cursor-pointer'
+						>
+							{showMore ? 'Show less' : 'Show more'}
 							<span>
-								<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-									<path d="M16 10L12 14L8 10" stroke="#FF9C28" stroke-width="2" strokeLinecap="round" strokeLinejoin="round" />
+								<svg
+									width='24'
+									height='24'
+									viewBox='0 0 24 24'
+									fill='none'
+									xmlns='http://www.w3.org/2000/svg'
+								>
+									<path
+										d='M16 10L12 14L8 10'
+										stroke='#FF9C28'
+										stroke-width='2'
+										strokeLinecap='round'
+										strokeLinejoin='round'
+									/>
 								</svg>
 							</span>
 						</Text>
@@ -98,4 +133,4 @@ const FilterSidebar = ({ books, category_list }) => {
 	)
 }
 
-export default FilterSidebar;
+export default FilterSidebar

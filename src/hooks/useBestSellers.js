@@ -1,18 +1,18 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect } from "react"
 
 const useBestSellers = (books) => {
-    const [bestSellers, setBestSellers] = useState([]);
+    const [bestSellers, setBestSellers] = useState([])
 
     useEffect(() => {
         if (books.length > 0) {
             const bestSellers = [...books].sort((a, b) => {
-                return b.average_rating - a.average_rating;
+                return b.average_rating - a.average_rating
             }).slice(0, 20);
-            setBestSellers(bestSellers);
+            setBestSellers(bestSellers)
         }
-    }, [books]);
+    }, [books])
 
-    return bestSellers;
-};
+    return bestSellers
+}
 
-export default useBestSellers;
+export default useBestSellers

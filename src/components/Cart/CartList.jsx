@@ -14,10 +14,17 @@ import {
 	GridItem,
 } from '@chakra-ui/react'
 import bookshelfColors from '@/styles/colors'
-import { removeFromCart, increaseQuantity, decreseQuantity } from '@/redux/cart/cartSlice'
-import React, { useState, useEffect } from 'react';
+import {
+	removeFromCart,
+	increaseQuantity,
+	decreseQuantity,
+} from '@/redux/cart/cartSlice'
+import React, { useState, useEffect } from 'react'
 import { getBookCartRecommendation } from '@/api'
-import { clearRecommendations, setRecommendations } from '@/redux/recommendation/recommendationSlice'
+import {
+	clearRecommendations,
+	setRecommendations,
+} from '@/redux/recommendation/recommendationSlice'
 
 const CartList = () => {
 	const router = useRouter()
@@ -26,33 +33,41 @@ const CartList = () => {
 	const totalQuantity = useSelector(state => state.cart.totalQuantity)
 	const dispatch = useDispatch()
 
-
 	useEffect(() => {
 		const fetchRecommendedBooks = async () => {
-		  if (cart.length > 0) {
-			const bookIds = cart.map(item => item.book_id).join(', ');
-			const books = await getBookCartRecommendation(bookIds);
-			const filteredBooks = books.filter(book => !cart.some(cartItem => cartItem.book_id === book.book_id));
-			dispatch(setRecommendations(filteredBooks));
-		  } else {
-			dispatch(clearRecommendations());
-		  }
-		};
-	  
-		fetchRecommendedBooks();
-	  }, [cart, dispatch]);
+			if (cart.length > 0) {
+				const bookIds = cart.map(item => item.book_id).join(', ')
+				const books = await getBookCartRecommendation(bookIds)
+				const filteredBooks = books.filter(
+					book =>
+						!cart.some(
+							cartItem => cartItem.book_id === book.book_id
+						)
+				)
+				dispatch(setRecommendations(filteredBooks))
+			} else {
+				dispatch(clearRecommendations())
+			}
+		}
+
+		fetchRecommendedBooks()
+	}, [cart, dispatch])
 
 	const Quantity = ({ item }) => {
 		return (
 			<Box>
 				<Flex className='flex flex-row justify-center items-center'>
-					<Button onClick={() => dispatch(decreseQuantity(item.book_id))}>
+					<Button
+						onClick={() => dispatch(decreseQuantity(item.book_id))}
+					>
 						-
 					</Button>
 					<Text className='text-regular-bold w-12 text-center'>
 						{item.quantity}
 					</Text>
-					<Button onClick={() => dispatch(increaseQuantity(item.book_id))}>
+					<Button
+						onClick={() => dispatch(increaseQuantity(item.book_id))}
+					>
 						+
 					</Button>
 				</Flex>
@@ -61,7 +76,10 @@ const CartList = () => {
 	}
 
 	const Price = ({ item }) => (
-		<span className='text-large-bold text-primary-main'><span>$</span>{item.totalPrice}</span>
+		<span className='text-large-bold text-primary-main'>
+			<span>$</span>
+			{item.totalPrice}
+		</span>
 	)
 
 	const Remove = ({ item }) => {
@@ -81,9 +99,9 @@ const CartList = () => {
 	const handleSubmit = async e => {
 		e.preventDefault()
 		const checkoutInfo = {
-			"total": totalAmount,
-			"orderItems": cart.map(item => item.book_id),
-			"quantity": cart.map(item => item.quantity)
+			total: totalAmount,
+			orderItems: cart.map(item => item.book_id),
+			quantity: cart.map(item => item.quantity),
 		}
 		// console.log(checkoutInfo)
 		// dispatch(orderCheckout({ userToken, userInfo, checkoutInfo }))
@@ -104,12 +122,10 @@ const CartList = () => {
 		>
 			<Flex py={6} direction='column' w='full' className='relative'>
 				<Text className='text-heading-4' mb={6}>
-					My Cart <span>{totalQuantity ? `(${totalQuantity})` : ''}</span>
+					My Cart{' '}
+					<span>{totalQuantity ? `(${totalQuantity})` : ''}</span>
 				</Text>
-				<Grid
-					templateColumns='repeat(3, 1fr)'
-					gap={4}
-				>
+				<Grid templateColumns='repeat(3, 1fr)' gap={4}>
 					{!cart.length ? (
 						<GridItem colSpan={3}>
 							<Box
@@ -123,7 +139,9 @@ const CartList = () => {
 								</Text>
 								<button
 									className='px-4 py-2 mt-4 text-white bg-primary-main rounded-lg hover:bg-primary-dark text-medium-bold'
-									onClick={() => router.push('/all-categories')}
+									onClick={() =>
+										router.push('/all-categories')
+									}
 								>
 									Go to book store
 								</button>
@@ -131,29 +149,60 @@ const CartList = () => {
 						</GridItem>
 					) : (
 						<GridItem colSpan={2}>
-							<Card w="full" bgColor="white">
-								<Flex direction="row" alignItems="center" px={8} pt={8}>
-									<Text fontWeight="bold" flex="8" textAlign="left">Item</Text>
-									<Text fontWeight="bold" flex="3" textAlign="center">Quantity</Text>
-									<Text fontWeight="bold" flex="3" textAlign="center">Total</Text>
-									<Text fontWeight="bold" flex="1" textAlign="center"></Text>
+							<Card w='full' bgColor='white'>
+								<Flex
+									direction='row'
+									alignItems='center'
+									px={8}
+									pt={8}
+								>
+									<Text
+										fontWeight='bold'
+										flex='8'
+										textAlign='left'
+									>
+										Item
+									</Text>
+									<Text
+										fontWeight='bold'
+										flex='3'
+										textAlign='center'
+									>
+										Quantity
+									</Text>
+									<Text
+										fontWeight='bold'
+										flex='3'
+										textAlign='center'
+									>
+										Total
+									</Text>
+									<Text
+										fontWeight='bold'
+										flex='1'
+										textAlign='center'
+									></Text>
 								</Flex>
 								{cart.map((item, index) => (
 									<Flex
 										key={index}
-										direction="row"
-										alignItems="center"
+										direction='row'
+										alignItems='center'
 										px={8}
 										pt={6}
 										pb={8}
-										justifyContent="space-between"
-										w="full"
+										justifyContent='space-between'
+										w='full'
 									>
 										<Flex
-											flex="8"
-											fontSize="md"
-											cursor="pointer"
-											onClick={() => router.push(`/books/${item.book_id}`)}
+											flex='8'
+											fontSize='md'
+											cursor='pointer'
+											onClick={() =>
+												router.push(
+													`/books/${item.book_id}`
+												)
+											}
 											gap={4}
 											pr={2}
 											alignItems={'center'}
@@ -164,24 +213,21 @@ const CartList = () => {
 												w={16}
 												h={24}
 											/>
-											<Text>
-												{item.title}
-											</Text>
+											<Text>{item.title}</Text>
 										</Flex>
-										<Flex flex="3" justifyContent="center">
+										<Flex flex='3' justifyContent='center'>
 											<Quantity item={item} />
 										</Flex>
-										<Flex flex="3" justifyContent="center">
+										<Flex flex='3' justifyContent='center'>
 											<Price item={item} />
 										</Flex>
-										<Flex flex="1" justifyContent="center">
+										<Flex flex='1' justifyContent='center'>
 											<Remove item={item} />
 										</Flex>
 									</Flex>
 								))}
 							</Card>
 						</GridItem>
-
 					)}
 					{!cart.length ? (
 						''
@@ -198,7 +244,8 @@ const CartList = () => {
 										Total price (including VAT):
 									</Text>
 									<Text className='font-bold text-2xl text-primary-main'>
-										<span>$</span>{totalAmount}
+										<span>$</span>
+										{totalAmount}
 									</Text>
 								</Box>
 								<Button
@@ -210,7 +257,7 @@ const CartList = () => {
 									}}
 									my={8}
 									w='full'
-									onClick={(e) => handleSubmit(e)}
+									onClick={e => handleSubmit(e)}
 								>
 									Check out
 								</Button>
@@ -223,4 +270,4 @@ const CartList = () => {
 	)
 }
 
-export default CartList;
+export default CartList

@@ -14,10 +14,10 @@ const SectionHeader = ({ children }) => {
 	)
 }
 
-const Section = ({books}) => {
-	const links = ['Best Sellers', 'New Arrivals'];
-	const bestSellers = useBestSellers(books);
-	const newArrivals = useNewArrivals(books);
+const Section = ({ books }) => {
+	const links = ['Best Sellers', 'New Arrivals']
+	const bestSellers = useBestSellers(books)
+	const newArrivals = useNewArrivals(books)
 	return (
 		<>
 			{links.map((link, index) => {
@@ -33,13 +33,17 @@ const Section = ({books}) => {
 								<HStack
 									alignItems={'center'}
 									className='hover:text-primary-main'
-									transition="transform 0.2s"
+									transition='transform 0.2s'
 									_hover={{
 										transform: 'translateX(4px)',
-									}}>
+									}}
+								>
 									<Text>See all</Text>
 									<Box
-										_hover={{stroke: bookshelfColors.primary.main}}
+										_hover={{
+											stroke: bookshelfColors.primary
+												.main,
+										}}
 									>
 										<svg
 											width='32'
@@ -67,7 +71,13 @@ const Section = ({books}) => {
 								</HStack>
 							</Link>
 						</Flex>
-						<CardSlider books={link === "Best Sellers" ? bestSellers : newArrivals} />
+						<CardSlider
+							books={
+								link === 'Best Sellers'
+									? bestSellers
+									: newArrivals
+							}
+						/>
 					</Box>
 				)
 			})}

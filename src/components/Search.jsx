@@ -1,5 +1,5 @@
-import { useRouter } from 'next/router';
-import bookshelfColors from '@/styles/colors';
+import { useRouter } from 'next/router'
+import bookshelfColors from '@/styles/colors'
 import {
 	Button,
 	Input,
@@ -8,46 +8,46 @@ import {
 	Stack,
 	Box,
 	Flex,
-} from '@chakra-ui/react';
-import { useEffect, useState } from 'react';
-import axios from 'axios';
-import { API_URL } from '@/constant/api';
-import { debounce } from 'lodash';
+} from '@chakra-ui/react'
+import { useEffect, useState } from 'react'
+import axios from 'axios'
+import { API_URL } from '@/constant/api'
+import { debounce } from 'lodash'
 
 const Search = () => {
-	const [searchQuery, setSearchQuery] = useState('');
-	const [results, setResults] = useState([]);
+	const [searchQuery, setSearchQuery] = useState('')
+	const [results, setResults] = useState([])
 	const router = useRouter()
 
-	const fetchSearchResults = debounce(async (query) => {
+	const fetchSearchResults = debounce(async query => {
 		if (!query) {
-			setResults([]);
-			return;
+			setResults([])
+			return
 		}
 		try {
-			const response = await axios.get(`${API_URL}books/${query}/`);
-			setResults(response.data);
+			const response = await axios.get(`${API_URL}books/${query}/`)
+			setResults(response.data)
 		} catch (error) {
-			console.error('Error fetching search results:', error);
-			setResults([]);
+			console.error('Error fetching search results:', error)
+			setResults([])
 		}
-	}, 300);
+	}, 300)
 
 	useEffect(() => {
-		fetchSearchResults(searchQuery);
-	}, [searchQuery]);
+		fetchSearchResults(searchQuery)
+	}, [searchQuery])
 
 	const handleChange = event => {
-		setSearchQuery(event.target.value);
+		setSearchQuery(event.target.value)
 	}
 
 	const handleFormSubmit = event => {
-		event.preventDefault();
-		router.push(`/results?searchQuery=${encodeURIComponent(searchQuery)}`);
+		event.preventDefault()
+		router.push(`/results?searchQuery=${encodeURIComponent(searchQuery)}`)
 	}
 
 	const highlightText = (text, highlight) => {
-		const parts = text.split(new RegExp(`(${highlight})`, 'gi'));
+		const parts = text.split(new RegExp(`(${highlight})`, 'gi'))
 		return parts.map((part, index) =>
 			part.toLowerCase() === highlight.toLowerCase() ? (
 				<span key={index} style={{ fontWeight: 'bold' }}>
@@ -56,12 +56,12 @@ const Search = () => {
 			) : (
 				part
 			)
-		);
-	};
+		)
+	}
 
-	const handleSearchResultClick = (bookId) => {
-		setSearchQuery('');
-		router.push(`/books/${bookId}`);
+	const handleSearchResultClick = bookId => {
+		setSearchQuery('')
+		router.push(`/books/${bookId}`)
 	}
 
 	return (
@@ -119,7 +119,10 @@ const Search = () => {
 					</InputGroup>
 				</Stack>
 			</form>
-			<Box position={'relative'} className='top-0 left-0 right-0 bottom-0'>
+			<Box
+				position={'relative'}
+				className='top-0 left-0 right-0 bottom-0'
+			>
 				<Flex
 					zIndex={1000}
 					className='w-full absolute bg-white block break-words flex-1 flex-col shadow-lg'
@@ -128,7 +131,9 @@ const Search = () => {
 						<div
 							key={result.index}
 							className='w-full p-3 cursor-pointer hover:bg-gray-100'
-							onClick={() => handleSearchResultClick(result.book_id)}
+							onClick={() =>
+								handleSearchResultClick(result.book_id)
+							}
 						>
 							{highlightText(result.title, searchQuery)}
 						</div>

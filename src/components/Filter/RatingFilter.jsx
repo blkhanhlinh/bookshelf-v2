@@ -1,18 +1,11 @@
 import bookshelfColors from '@/styles/colors'
-import {
-	Box,
-	Divider,
-	Radio,
-	RadioGroup,
-	Stack,
-	Text,
-} from '@chakra-ui/react'
+import { Box, Divider, Radio, RadioGroup, Stack, Text } from '@chakra-ui/react'
 
 const RatingFilter = () => {
 	const values = [
-		{value: '3', text: 'From 3 stars'},
-		{value: '4', text: 'From 4 stars'},
-		{value: '5', text: 'From 5 stars'}
+		{ value: '3', text: 'From 3 stars' },
+		{ value: '4', text: 'From 4 stars' },
+		{ value: '5', text: 'From 5 stars' },
 	]
 	return (
 		<>

@@ -7,19 +7,21 @@ const SubNav = ({ books }) => {
 	const router = useRouter()
 
 	const categoryCounts = books.reduce((acc, book) => {
-		acc[book.category] = (acc[book.category] || 0) + 1;
-		return acc;
-	}, {});
+		acc[book.category] = (acc[book.category] || 0) + 1
+		return acc
+	}, {})
 
 	const categories = Object.entries(categoryCounts).map(([key, count]) => ({
 		path: `/all-categories/${key}`,
 		title: key,
-		count
-	}));
+		count,
+	}))
 
-	const topCategories = categories.sort((a, b) => b.count - a.count).slice(0, 7);
+	const topCategories = categories
+		.sort((a, b) => b.count - a.count)
+		.slice(0, 7)
 
-	const allPaths = essentialPath.concat(topCategories);
+	const allPaths = essentialPath.concat(topCategories)
 
 	return (
 		<nav id='sub-nav'>
@@ -34,10 +36,12 @@ const SubNav = ({ books }) => {
 					<Link
 						href={`${category.path}`}
 						key={index}
-						className={`text-base capitalize ${router.pathname === `/all-categories/${category.path}`
+						className={`text-base capitalize ${
+							router.pathname ===
+							`/all-categories/${category.path}`
 								? 'text-primary-main'
 								: 'hover:text-primary-main'
-							}`}
+						}`}
 					>
 						{category.title}
 					</Link>

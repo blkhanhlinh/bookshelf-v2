@@ -43,9 +43,7 @@ const PromoCards = () => {
 						_hover={{ bgColor: bookshelfColors.secondary.dark }}
 						fontWeight={'bold'}
 					>
-						<Link href='/books/136'>
-							Buy now!
-						</Link>
+						<Link href='/books/136'>Buy now!</Link>
 					</Button>
 				</Stack>
 				<Flex>

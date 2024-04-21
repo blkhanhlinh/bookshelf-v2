@@ -88,9 +88,9 @@ const AuthorFilter = () => {
 						<Text
 							color={bookshelfColors.secondary.main}
 							onClick={handleToggleShowMore}
-                            className='cursor-pointer'
-                            mt={2}
-                            alignSelf={'center'}
+							className='cursor-pointer'
+							mt={2}
+							alignSelf={'center'}
 						>
 							{showMore ? 'Show less' : 'View more'}
 						</Text>

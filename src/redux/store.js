@@ -1,16 +1,16 @@
-import { configureStore } from '@reduxjs/toolkit';
-import { persistStore, persistReducer } from 'redux-persist';
-import rootReducer from './rootReducer';
-import storage from 'redux-persist/lib/storage';
-import { createWrapper } from 'next-redux-wrapper';
+import { configureStore } from '@reduxjs/toolkit'
+import { persistStore, persistReducer } from 'redux-persist'
+import rootReducer from './rootReducer'
+import storage from 'redux-persist/lib/storage'
+import { createWrapper } from 'next-redux-wrapper'
 
 export const persistConfig = {
     key: 'root',
     storage,
     whitelist: ['cart'],
-};
+}
 
-const persistedReducer = persistReducer(persistConfig, rootReducer);
+const persistedReducer = persistReducer(persistConfig, rootReducer)
 
 const makeStore = () => configureStore({
     reducer: persistedReducer,
@@ -18,12 +18,12 @@ const makeStore = () => configureStore({
         serializableCheck: false,
         devTools: process.env.NODE_ENV !== 'production',
     }),
-});
+})
 
 export const persistedStore = () => {
-    const store = makeStore();
-    const persistor = persistStore(store);
-    return { store, persistor };
+    const store = makeStore()
+    const persistor = persistStore(store)
+    return { store, persistor }
 }
 
-export const wrapper = createWrapper(makeStore, { debug: true });
+export const wrapper = createWrapper(makeStore, { debug: true })

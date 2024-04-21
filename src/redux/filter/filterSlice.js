@@ -1,6 +1,6 @@
-import useBestSellers from '@/hooks/useBestSellers';
-import useNewArrivals from '@/hooks/useNewArrivals';
-import { createSlice } from '@reduxjs/toolkit';
+import useBestSellers from '@/hooks/useBestSellers'
+import useNewArrivals from '@/hooks/useNewArrivals'
+import { createSlice } from '@reduxjs/toolkit'
 
 const filterSlice = createSlice({
     name: 'filters',
@@ -11,29 +11,29 @@ const filterSlice = createSlice({
     },
     reducers: {
         setBooks: (state, action) => {
-            state.books = action.payload;
+            state.books = action.payload
         },
         sortBooksAsc: (state, action) => {
-            const sortAsc = action.payload.sort((a, b) => (a.title < b.title ? 1 : a.title > b.title ? -1 : 0));
-            state.books = sortAsc;
+            const sortAsc = action.payload.sort((a, b) => (a.title < b.title ? 1 : a.title > b.title ? -1 : 0))
+            state.books = sortAsc
         },
         sortBooksDesc: (state, action) => {
-            const sortAsc = action.payload.sort((a, b) => (a.title < b.title ? -1 : a.title > b.title ? 1 : 0));
-            state.books = sortAsc;
+            const sortAsc = action.payload.sort((a, b) => (a.title < b.title ? -1 : a.title > b.title ? 1 : 0))
+            state.books = sortAsc
         },
         setPriceRange: (state, action) => {
-            state.priceRange = action.payload;
+            state.priceRange = action.payload
         },
         resetSort: state => {
-            state.books = [];
+            state.books = []
         },
         resetFilters: state => {
-            state.books = [];
-            state.priceRange = '';
+            state.books = []
+            state.priceRange = ''
         },
     }
 })
 
-export const { setPriceRange, resetFilters, sortBooksAsc, sortBooksDesc, resetSort } = filterSlice.actions;
+export const { setPriceRange, resetFilters, sortBooksAsc, sortBooksDesc, resetSort } = filterSlice.actions
 
 export const filterReducer = filterSlice.reducer

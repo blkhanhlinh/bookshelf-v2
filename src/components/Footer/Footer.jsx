@@ -153,7 +153,9 @@ const Footer = ({ category_list }) => {
 						<ListHeader>Services</ListHeader>
 						{services.map((service, index) => {
 							return (
-								<Link key={index} href={service.path}>{service.title}</Link>
+								<Link key={index} href={service.path}>
+									{service.title}
+								</Link>
 							)
 						})}
 					</Stack>
@@ -170,14 +172,17 @@ const Footer = ({ category_list }) => {
 					<Stack spacing={2} align={'flex-start'}>
 						<ListHeader>My Account</ListHeader>
 						<HStack>
-							<Link href='/auth/login'>Login</Link> <span> / </span>
+							<Link href='/auth/login'>Login</Link>{' '}
+							<span> / </span>
 							<Link href='/auth/register' as={'span'}>
 								Signup
 							</Link>
 						</HStack>
 						{account.map((account, index) => {
 							return (
-								<Link key={index} href={account.path}>{account.title}</Link>
+								<Link key={index} href={account.path}>
+									{account.title}
+								</Link>
 							)
 						})}
 					</Stack>
@@ -219,7 +224,8 @@ const Footer = ({ category_list }) => {
 					textAlign={{ base: 'center', md: 'center' }}
 				>
 					<Text paddingY={3} className='text-regular'>
-						© {new Date().getFullYear()} Bookshelf. All Rights Reserved.
+						© {new Date().getFullYear()} Bookshelf. All Rights
+						Reserved.
 					</Text>
 				</Container>
 			</Box>

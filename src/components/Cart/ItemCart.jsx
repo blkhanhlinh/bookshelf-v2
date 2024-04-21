@@ -20,10 +20,12 @@ const ItemCart = ({ item, removeItem }) => {
 				</strong>
 				<p className='text-info flex gap-1'>
 					<span className='text-primary-main text-regular-bold'>
-						<span>$</span>{item.price} x {item.quantity}
+						<span>$</span>
+						{item.price} x {item.quantity}
 					</span>
 					<span className='text-primary-main text-regular-bold'>
-						= <span>$</span>{item.price * item.quantity}
+						= <span>$</span>
+						{item.price * item.quantity}
 					</span>
 				</p>
 			</div>

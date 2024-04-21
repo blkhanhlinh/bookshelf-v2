@@ -12,14 +12,17 @@ import {
 import WidgetCart from './WidgetCart'
 import bookshelfColors from '@/styles/colors'
 import { MenuItem } from '../Header/MainNav'
-import { useSelector, useDispatch } from 'react-redux';
-import { addToCart } from '@/redux/cart/cartSlice';
-import { selectCartTotalAmount, selectCartTotalQuantity } from '@/redux/cart/cartSelectors';
+import { useSelector, useDispatch } from 'react-redux'
+import { addToCart } from '@/redux/cart/cartSlice'
+import {
+	selectCartTotalAmount,
+	selectCartTotalQuantity,
+} from '@/redux/cart/cartSelectors'
 
 export default function ShoppingCart() {
-	const dispatch = useDispatch();
-	const quantity = useSelector(selectCartTotalQuantity);
-	const price = useSelector(selectCartTotalAmount);
+	const dispatch = useDispatch()
+	const quantity = useSelector(selectCartTotalQuantity)
+	const price = useSelector(selectCartTotalAmount)
 
 	return (
 		<Popover
@@ -31,8 +34,8 @@ export default function ShoppingCart() {
 			<PopoverTrigger>
 				<Flex direction='column' align='center'>
 					<MenuItem
-                        path="/my-cart"
-                        name="My Cart"
+						path='/my-cart'
+						name='My Cart'
 						icon={
 							<path
 								strokeLinecap='round'

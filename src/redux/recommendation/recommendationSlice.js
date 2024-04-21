@@ -1,4 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice } from '@reduxjs/toolkit'
 
 export const recommendationSlice = createSlice({
     name: 'recommendation',
@@ -7,14 +7,14 @@ export const recommendationSlice = createSlice({
     },
     reducers: {
         setRecommendations: (state, action) => {
-            state.books = action.payload;
+            state.books = action.payload
         },
         clearRecommendations: (state) => {
-            state.books = [];
+            state.books = []
         },
     },
-});
+})
 
-export const { setRecommendations, clearRecommendations } = recommendationSlice.actions;
+export const { setRecommendations, clearRecommendations } = recommendationSlice.actions
 
-export default recommendationSlice.reducer;
+export default recommendationSlice.reducer
