@@ -10,6 +10,11 @@
 		"beautify": "npx prettier --write \"src/**/*.{js,jsx,ts,tsx}\"",
 		"prepush": "yarn beautify && yarn lint"
 	},
+	"overrides": {
+		"@chakra-ui/focus-lock": {
+		  "react-focus-lock": "2.11.3"
+		}
+	},
 	"dependencies": {
 		"@chakra-ui/react": "^2.5.5",
 		"@emotion/react": "^11.10.6",
@@ -36,8 +41,5 @@
 		"redux-persist": "^6.0.0",
 		"slick-carousel": "^1.8.1",
 		"tailwindcss": "3.3.1"
-	},
-	"resolutions": {
-		"react-focus-lock": "2.9.6" 
 	}
 }
