@@ -4,9 +4,7 @@ services:
   frontend:
     container_name: frontend
     build:
-      context: ./bookshelf-v2
+      context: .
       dockerfile: Dockerfile
     ports:
       - "80:3000"
-    networks:
-      - bookshelf

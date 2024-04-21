@@ -1,12 +1,12 @@
 FROM node:18-alpine
 
-WORKDIR /app/frontend
+WORKDIR /app
 
-COPY package.json /app/frontend
+COPY package.json /app
 
 RUN yarn install
 
-COPY . /app/frontend
+COPY . /app
 
 EXPOSE 3000
 
