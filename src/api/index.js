@@ -5,7 +5,7 @@ export async function getBooksFromAPI() {
   try {
     const response = await axios.get(`${API_URL}books/`);
     if (response.status === 201) {
-      return response.data;
+      return response.data;      
     } else {
       throw new Error('Failed to fetch books');
     }
