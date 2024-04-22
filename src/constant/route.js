@@ -4,11 +4,11 @@ export const essentialPath = [
         title: 'All Categories',
     },
     {
-        path: '/best-sellers',
+        path: `/all-categories/${encodeURIComponent('Best Sellers')}`,
         title: 'Best Sellers',
     },
     {
-        path: '/new-arrivals',
+        path: `/all-categories/${encodeURIComponent('New Arrivals')}`,
         title: 'New Arrivals',
     },
 ]

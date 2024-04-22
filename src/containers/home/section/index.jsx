@@ -29,7 +29,7 @@ const Section = ({ books }) => {
 							alignItems={'center'}
 						>
 							<SectionHeader>{link}</SectionHeader>
-							<Link href={link}>
+							<Link href={`/all-categories/${link}`}>
 								<HStack
 									alignItems={'center'}
 									className='hover:text-primary-main'

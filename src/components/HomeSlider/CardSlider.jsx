@@ -39,7 +39,7 @@ const CardSlider = ({ books }) => {
 
 	const settings = {
 		dots: true,
-		infinite: true,
+		infinite: books.length > 4 ? true : false,
 		speed: 800,
 		slidesToShow: 4,
 		slidesToScroll: 2,
@@ -70,8 +70,8 @@ const CardSlider = ({ books }) => {
 	const limitedBooks = books.slice(0, 12)
 
 	return (
-		<div className='slider-container'>
-			<Slider ref={ref} {...settings} className='pb-5'>
+		<div>
+			<Slider ref={ref} {...settings} className='pb-5 [&_div]:ml-0'>
 				{limitedBooks.map(book => (
 					<BookCard key={book.book_id} book={book} />
 				))}

@@ -1,8 +1,10 @@
 import Head from 'next/head'
-import Landing from '@/containers/home/landing'
-import Section from '@/containers/home/section'
 import DesktopLayout from '@/components/Layout/DesktopLayout'
 import { getBooksFromAPI, getCategoryList } from '@/api'
+import dynamic from 'next/dynamic'
+
+const Landing = dynamic(() => import('@/containers/home/Landing'))
+const Section = dynamic(() => import('@/containers/home/Section'))
 
 const Home = ({ books, category_list }) => {
     return (
@@ -13,7 +15,7 @@ const Home = ({ books, category_list }) => {
                     name='viewport'
                     content='initial-scale=1.0, width=device-width'
                 />
-                <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests" />
+                {/* <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests" /> */}
                 <link rel='icon' type='image/svg+xml' href='/favicon.svg' />
                 <title>Bookshelf</title>
             </Head>
