@@ -13,6 +13,7 @@ const Home = ({ books, category_list }) => {
                     name='viewport'
                     content='initial-scale=1.0, width=device-width'
                 />
+                <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests" />
                 <link rel='icon' type='image/svg+xml' href='/favicon.svg' />
                 <title>Bookshelf</title>
             </Head>
