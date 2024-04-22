@@ -7,6 +7,7 @@ import { ChakraProvider, extendTheme } from '@chakra-ui/react'
 import theme from '@/styles/theme'
 import { persistedStore } from '@/redux/store'
 import { VisibilityProvider } from '@/context/visibility'
+import { SpeedInsights } from '@vercel/speed-insights/next';
 
 function App({ Component, pageProps }) {
 	const Loading = () => {
@@ -26,6 +27,7 @@ function App({ Component, pageProps }) {
 				<PersistGate loading={<Loading />} persistor={persistor}>
 					<VisibilityProvider>
 						<Component {...pageProps} />
+						<SpeedInsights />
 					</VisibilityProvider>
 				</PersistGate>
 			</Provider>
