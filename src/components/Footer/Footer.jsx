@@ -163,7 +163,7 @@ const Footer = ({ category_list }) => {
 						<ListHeader>Product Categories</ListHeader>
 						{category_list.slice(0, 8).map((category, index) => {
 							return (
-								<Link key={index} href={category}>
+								<Link key={index} href={`/all-categories/${category}`}>
 									{category}
 								</Link>
 							)

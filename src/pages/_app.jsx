@@ -7,32 +7,44 @@ import { ChakraProvider, extendTheme } from '@chakra-ui/react'
 import theme from '@/styles/theme'
 import { persistedStore } from '@/redux/store'
 import { VisibilityProvider } from '@/context/visibility'
-import { SpeedInsights } from '@vercel/speed-insights/next';
+import bookshelfColors from '@/styles/colors'
+import React, { Suspense } from 'react'
+import { SpeedInsights } from '@vercel/speed-insights/next'
 
-function App({ Component, pageProps }) {
-	const Loading = () => {
-		return (
-			<div className='flex min-h-screen flex-col items-center justify-center text-gray-800'>
-				<Spinner />
-				<p>Loading...</p>
-			</div>
-		)
-	}
-
-	const { store, persistor } = persistedStore()
-
-	return (
-		<ChakraProvider theme={theme}>
-			<Provider store={store}>
-				<PersistGate loading={<Loading />} persistor={persistor}>
-					<VisibilityProvider>
-						<Component {...pageProps} />
-						<SpeedInsights />
-					</VisibilityProvider>
-				</PersistGate>
-			</Provider>
-		</ChakraProvider>
-	)
+export const Loading = () => {
+    return (
+        <div className='flex min-h-screen flex-col items-center justify-center text-gray-800'>
+            <Spinner
+                thickness='4px'
+                speed='0.65s'
+                emptyColor='gray.200'
+                color={bookshelfColors.primary.main}
+                size='xl'
+            />
+            <p>Loading...</p>
+        </div>
+    )
 }
 
-export default App
+function App({ Component, pageProps }) {
+    const { store, persistor } = persistedStore()
+
+    return (
+        <>
+            <ChakraProvider theme={extendTheme(theme)}>
+                <Provider store={store}>
+                    <PersistGate loading={<Loading />} persistor={persistor}>
+                        <VisibilityProvider>
+                            <Suspense fallback={<Loading />}>
+                                <Component {...pageProps} />
+                                <SpeedInsights />
+                            </Suspense>
+                        </VisibilityProvider>
+                    </PersistGate>
+                </Provider>
+            </ChakraProvider>
+        </>
+    )
+}
+
+export default wrapper.withRedux(App)

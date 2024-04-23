@@ -366,7 +366,7 @@ const BookDetailsPage = ({ book, relatedBooks, category_list }) => {
                                     )}
                                 </>
                             ))}
-                        <Flex ml={12} flexDir={'column'} gap={4}>
+                        <Flex ml={16} flexDir={'column'} gap={4}>
                             <Text fontSize={'lg'}>
                                 Total price:{' '}
                                 <span className='text-2xl font-bold'>

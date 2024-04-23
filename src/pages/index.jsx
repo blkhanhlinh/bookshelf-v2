@@ -30,19 +30,17 @@ const Home = ({ books, category_list }) => {
 }
 
 export async function getServerSideProps() {
-    let books = []
-    let category_list = []
-    try {
-        books = await getBooksFromAPI()
-    } catch (error) {
-        console.log('Error fetching books by category', error)
-    }
+    const fetchBooks = getBooksFromAPI().catch(error => {
+        console.error('Error fetching books by category', error);
+        return [];
+    });
 
-    try {
-        category_list = await getCategoryList()
-    } catch (error) {
-        console.log('Error fetching category list', error)
-    }
+    const fetchCategories = getCategoryList().catch(error => {
+        console.error('Error fetching category list', error);
+        return [];
+    });
+
+    const [books, category_list] = await Promise.all([fetchBooks, fetchCategories]);
     return {
         props: {
             books,
@@ -50,5 +48,6 @@ export async function getServerSideProps() {
         },
     }
 }
+
 
 export default Home
