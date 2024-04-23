@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import React, { useState, useEffect, Suspense } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import Head from 'next/head'
 import {
@@ -21,47 +21,58 @@ import { useRouter } from 'next/router'
 import DesktopLayout from '@/components/Layout/DesktopLayout'
 import bookshelfColors from '@/styles/colors'
 import { Rating } from '@/components/HomeSlider/BookCard'
-import { BookCard, CardSlider } from '@/components/HomeSlider'
 import { getBookById, getBookRecommendations, getCategoryList } from '@/api'
-import { increaseQuantity, addSomeToCart, addToCart } from '@/redux/cart/cartSlice'
+import {
+    increaseQuantity,
+    addSomeToCart,
+    addToCart,
+} from '@/redux/cart/cartSlice'
+import Loading from '@/components/Loading'
+
+const BookCard = React.lazy(() => import('@/components/HomeSlider/BookCard'))
+const CardSlider = React.lazy(() =>
+    import('@/components/HomeSlider/CardSlider')
+)
 
 export async function getServerSideProps({ params }) {
-    let book = null
-    let relatedBooks = []
-    let category_list = []
     const bookId = params.id
+
     try {
-        book = await getBookById(bookId)
+        const [book, relatedBooks, category_list] = await Promise.all([
+            getBookById(bookId).catch(err => {
+                console.error('Error fetching book:', err)
+                return null
+            }),
+            getBookRecommendations(bookId).catch(err => {
+                console.error('Error fetching related books:', err)
+                return []
+            }),
+            getCategoryList().catch(err => {
+                console.error('Error fetching category list:', err)
+                return []
+            }),
+        ])
+
+        if (!book) {
+            return {
+                redirect: {
+                    destination: '/error',
+                    permanent: false,
+                },
+            }
+        }
+
+        return {
+            props: { book, relatedBooks, category_list },
+        }
     } catch (error) {
-        console.error('Error fetching book:', error)
-    }
-    if (!book) {
+        console.error('Error during data fetching:', error)
         return {
             redirect: {
                 destination: '/error',
                 permanent: false,
             },
         }
-    }
-
-    try {
-        relatedBooks = await getBookRecommendations(bookId)
-    } catch (error) {
-        console.error('Error fetching related books:', error)
-    }
-
-    try {
-        category_list = await getCategoryList()
-    } catch (error) {
-        console.error('Error fetching category list:', error)
-    }
-
-    return {
-        props: {
-            book,
-            relatedBooks,
-            category_list,
-        },
     }
 }
 
@@ -74,12 +85,9 @@ const BookDetailsPage = ({ book, relatedBooks, category_list }) => {
     const cart = useSelector(state => state.cart.items)
 
     const [readMore, setReadMore] = useState(false)
-    const [randomNumber, setRandomNumber] = useState(0)
     const [quantity, setQuantity] = useState(1)
 
-    useEffect(() => {
-        setRandomNumber(Math.floor(Math.random() * 1000))
-    }, [])
+    const randomNumber = Math.floor(Math.random() * 1000)
 
     const toggleDescription = () => {
         setReadMore(!readMore)
@@ -340,86 +348,91 @@ const BookDetailsPage = ({ book, relatedBooks, category_list }) => {
                     </Stack>
                 </Box>
             </Box>
-            <Box>
-                <Flex justifyContent={'space-between'} paddingBottom={2}>
-                    <Text fontWeight={'700'} fontSize={'2xl'}>
-                        Frequently bought together
-                    </Text>
-                </Flex>
+            {frequentBooks.length > 1 && (
                 <Box>
-                    <Flex
-                        justifyContent={'space-between'}
-                        alignItems={'center'}
-                    >
-                        {frequentBooks.length > 0 &&
-                            frequentBooks.map((book, index) => (
+                    <Flex justifyContent={'space-between'} paddingBottom={2}>
+                        <Text fontWeight={'700'} fontSize={'2xl'}>
+                            Frequently bought together
+                        </Text>
+                    </Flex>
+                    <Box>
+                        <Flex
+                            justifyContent={'space-between'}
+                            alignItems={'center'}
+                        >
+                            {frequentBooks.map((book, index) => (
                                 <>
-                                    <BookCard
-                                        book={book}
-                                        isHomepage={false}
-                                        setStars={false}
-                                    />
-                                    {index !== frequentBooks.length - 1 && (
-                                        <span className='text-2xl font-bold p-4'>
-                                            +
-                                        </span>
-                                    )}
+                                    <Suspense fallback={<Loading />}>
+                                        <BookCard
+                                            book={book}
+                                            isHomepage={false}
+                                            setStars={false}
+                                        />
+                                        {index !== frequentBooks.length - 1 && (
+                                            <span className='text-2xl font-bold p-4'>
+                                                +
+                                            </span>
+                                        )}
+                                    </Suspense>
                                 </>
                             ))}
-                        <Flex ml={16} flexDir={'column'} gap={4}>
-                            <Text fontSize={'lg'}>
-                                Total price:{' '}
-                                <span className='text-2xl font-bold'>
-                                    ${totalPrice}
-                                </span>
-                            </Text>
-                            <Button
-                                w='180px'
-                                h={12}
-                                color='white'
-                                bgColor={bookshelfColors.primary.main}
-                                _hover={{
-                                    bgColor: bookshelfColors.primary.dark,
-                                }}
-                                onClick={addAllToCartHandler}
-                            >
-                                Add all {frequentBooks.length} to Cart
-                                <span className='pl-2'>
-                                    <svg
-                                        width='19'
-                                        height='18'
-                                        viewBox='0 0 19 18'
-                                        fill='none'
-                                        xmlns='http://www.w3.org/2000/svg'
-                                        stroke='white'
-                                    >
-                                        <path
-                                            d='M15.838 6H4.10865C3.64519 6 3.29266 6.41615 3.36885 6.8733L4.61885 14.3733C4.67912 14.7349 4.99202 15 5.35865 15H14.588C14.9546 15 15.2675 14.7349 15.3277 14.3733L16.5777 6.8733C16.6539 6.41615 16.3014 6 15.838 6Z'
-                                            strokeWidth='1.5'
-                                            strokeLinecap='round'
-                                            strokeLinejoin='round'
-                                        />
-                                        <path
-                                            d='M6.97333 6C6.97333 4.34315 8.31647 3 9.97333 3C11.6302 3 12.9733 4.34315 12.9733 6'
-                                            strokeWidth='1.5'
-                                            strokeLinecap='round'
-                                            strokeLinejoin='round'
-                                        />
-                                    </svg>
-                                </span>
-                            </Button>
+                            <Flex ml={16} flexDir={'column'} gap={4}>
+                                <Text fontSize={'lg'}>
+                                    Total price:{' '}
+                                    <span className='text-2xl font-bold'>
+                                        ${totalPrice}
+                                    </span>
+                                </Text>
+                                <Button
+                                    w='180px'
+                                    h={12}
+                                    color='white'
+                                    bgColor={bookshelfColors.primary.main}
+                                    _hover={{
+                                        bgColor: bookshelfColors.primary.dark,
+                                    }}
+                                    onClick={addAllToCartHandler}
+                                >
+                                    Add all {frequentBooks.length} to Cart
+                                    <span className='pl-2'>
+                                        <svg
+                                            width='19'
+                                            height='18'
+                                            viewBox='0 0 19 18'
+                                            fill='none'
+                                            xmlns='http://www.w3.org/2000/svg'
+                                            stroke='white'
+                                        >
+                                            <path
+                                                d='M15.838 6H4.10865C3.64519 6 3.29266 6.41615 3.36885 6.8733L4.61885 14.3733C4.67912 14.7349 4.99202 15 5.35865 15H14.588C14.9546 15 15.2675 14.7349 15.3277 14.3733L16.5777 6.8733C16.6539 6.41615 16.3014 6 15.838 6Z'
+                                                strokeWidth='1.5'
+                                                strokeLinecap='round'
+                                                strokeLinejoin='round'
+                                            />
+                                            <path
+                                                d='M6.97333 6C6.97333 4.34315 8.31647 3 9.97333 3C11.6302 3 12.9733 4.34315 12.9733 6'
+                                                strokeWidth='1.5'
+                                                strokeLinecap='round'
+                                                strokeLinejoin='round'
+                                            />
+                                        </svg>
+                                    </span>
+                                </Button>
+                            </Flex>
                         </Flex>
-                    </Flex>
+                    </Box>
                 </Box>
-            </Box>
-            <Box paddingBottom={'104px'} mt={4}>
-                <Flex justifyContent={'space-between'} paddingBottom={2}>
-                    <Text fontWeight={'700'} fontSize={'2xl'}>
-                        Customers who bought this item also bought
-                    </Text>
-                </Flex>
-                <CardSlider books={relatedBooks} />
-            </Box>
+            )}
+            {relatedBooks.length > 0 && (
+                <Box paddingBottom={'104px'} mt={4}>
+                    <Flex justifyContent={'space-between'} paddingBottom={2}>
+                        <Text fontWeight={'700'} fontSize={'2xl'}>
+                            Customers who bought this item also bought
+                        </Text>
+                    </Flex>
+                    <CardSlider books={relatedBooks} />
+                </Box>
+            )}
         </DesktopLayout>
     )
 }

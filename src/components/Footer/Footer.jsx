@@ -13,7 +13,6 @@ import {
 import Image from 'next/image'
 import { useRouter } from 'next/router'
 import { services, account } from '@/constant/route'
-// import LoadingDots from '../LoadingDots'
 
 const ListHeader = ({ children }) => {
 	return (
@@ -108,8 +107,6 @@ const InfoIcon = () => {
 const Footer = ({ category_list }) => {
 	// const { categories, loading } = useCategories()
 	const router = useRouter()
-
-	// if (loading) return <LoadingDots />
 
 	return (
 		<Box
