@@ -43,7 +43,9 @@ export const cartSlice = createSlice({
                 })
             } else {
                 existingItem.quantity += newItem.quantity
-                existingItem.totalPrice += newItem.price * newItem.quantity
+                existingItem.totalPrice = parseFloat(
+                    (existingItem.totalPrice + newItem.price * newItem.quantity).toFixed(2)
+                )
             }
             state.totalQuantity += newItem.quantity
             state.totalAmount += newItem.price * newItem.quantity
@@ -57,7 +59,9 @@ export const cartSlice = createSlice({
                 (state.totalAmount + existingItem.price).toFixed(2)
             )
             existingItem.quantity++
-            existingItem.totalPrice += existingItem.price
+            existingItem.totalPrice = parseFloat(
+                (existingItem.totalPrice + existingItem.price).toFixed(2)
+            )
         },
         decreseQuantity: (state, action) => {
             const id = action.payload
@@ -67,7 +71,9 @@ export const cartSlice = createSlice({
                 (state.totalAmount - existingItem.price).toFixed(2)
             )
             existingItem.quantity--
-            existingItem.totalPrice -= existingItem.price
+            existingItem.totalPrice = parseFloat(
+                (existingItem.totalPrice - existingItem.price).toFixed(2)
+            )
             if (existingItem.quantity === 0) {
                 state.items = state.items.filter(item => item.book_id !== id)
             }

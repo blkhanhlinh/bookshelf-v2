@@ -21,9 +21,9 @@ import { useRouter } from 'next/router'
 import DesktopLayout from '@/components/Layout/DesktopLayout'
 import bookshelfColors from '@/styles/colors'
 import { Rating } from '@/components/HomeSlider/BookCard'
-import { CardSlider } from '@/components/HomeSlider'
+import { BookCard, CardSlider } from '@/components/HomeSlider'
 import { getBookById, getBookRecommendations, getCategoryList } from '@/api'
-import { increaseQuantity, addSomeToCart } from '@/redux/cart/cartSlice'
+import { increaseQuantity, addSomeToCart, addToCart } from '@/redux/cart/cartSlice'
 
 export async function getServerSideProps({ params }) {
     let book = null
@@ -126,6 +126,37 @@ const BookDetailsPage = ({ book, relatedBooks, category_list }) => {
         }
     }
 
+    const addAllToCartHandler = () => {
+        frequentBooks.forEach(book => {
+            const bookInCart = cart.find(item => item.book_id === book.book_id)
+            if (bookInCart) {
+                dispatch(increaseQuantity(book.book_id))
+            } else {
+                dispatch(addToCart(book))
+            }
+        })
+    }
+
+    const [frequentBooks, setFrequentBooks] = useState([])
+    const [totalPrice, setTotalPrice] = useState(0)
+
+    useEffect(() => {
+        // get 2 first
+        if (relatedBooks.length > 2) {
+            setFrequentBooks([book, ...relatedBooks.slice(0, 2)])
+        } else {
+            setFrequentBooks([book, ...relatedBooks])
+        }
+    }, [relatedBooks])
+
+    useEffect(() => {
+        let total = 0
+        frequentBooks.forEach(book => {
+            total += book.price
+        })
+        setTotalPrice(total)
+    }, [frequentBooks])
+
     return (
         <DesktopLayout isHomepage={false} category_list={category_list}>
             <Head>
@@ -218,7 +249,7 @@ const BookDetailsPage = ({ book, relatedBooks, category_list }) => {
                 </Stack>
             </HStack>
             <Box
-                my={12}
+                my={8}
                 px={6}
                 py={8}
                 bgColor={'white'}
@@ -226,9 +257,6 @@ const BookDetailsPage = ({ book, relatedBooks, category_list }) => {
                 gap={2}
                 flexDirection={'column'}
             >
-                <Heading as='h2' size='lg' fontWeight='bold' mb={4}>
-                    Book details
-                </Heading>
                 <Flex className='w-1/2 font-semibold text-lg'>
                     <Text flex={1}>Category</Text>
                     <Text
@@ -312,10 +340,82 @@ const BookDetailsPage = ({ book, relatedBooks, category_list }) => {
                     </Stack>
                 </Box>
             </Box>
-            <Box paddingBottom={'104px'} mt={12}>
-                <Flex justifyContent={'space-between'} paddingBottom={4}>
-                    <Text fontWeight={'700'} fontSize={'3xl'}>
-                        Related books
+            <Box>
+                <Flex justifyContent={'space-between'} paddingBottom={2}>
+                    <Text fontWeight={'700'} fontSize={'2xl'}>
+                        Frequently bought together
+                    </Text>
+                </Flex>
+                <Box>
+                    <Flex
+                        justifyContent={'space-between'}
+                        alignItems={'center'}
+                    >
+                        {frequentBooks.length > 0 &&
+                            frequentBooks.map((book, index) => (
+                                <>
+                                    <BookCard
+                                        book={book}
+                                        isHomepage={false}
+                                        setStars={false}
+                                    />
+                                    {index !== frequentBooks.length - 1 && (
+                                        <span className='text-2xl font-bold p-4'>
+                                            +
+                                        </span>
+                                    )}
+                                </>
+                            ))}
+                        <Flex ml={12} flexDir={'column'} gap={4}>
+                            <Text fontSize={'lg'}>
+                                Total price:{' '}
+                                <span className='text-2xl font-bold'>
+                                    ${totalPrice}
+                                </span>
+                            </Text>
+                            <Button
+                                w='180px'
+                                h={12}
+                                color='white'
+                                bgColor={bookshelfColors.primary.main}
+                                _hover={{
+                                    bgColor: bookshelfColors.primary.dark,
+                                }}
+                                onClick={addAllToCartHandler}
+                            >
+                                Add all {frequentBooks.length} to Cart
+                                <span className='pl-2'>
+                                    <svg
+                                        width='19'
+                                        height='18'
+                                        viewBox='0 0 19 18'
+                                        fill='none'
+                                        xmlns='http://www.w3.org/2000/svg'
+                                        stroke='white'
+                                    >
+                                        <path
+                                            d='M15.838 6H4.10865C3.64519 6 3.29266 6.41615 3.36885 6.8733L4.61885 14.3733C4.67912 14.7349 4.99202 15 5.35865 15H14.588C14.9546 15 15.2675 14.7349 15.3277 14.3733L16.5777 6.8733C16.6539 6.41615 16.3014 6 15.838 6Z'
+                                            strokeWidth='1.5'
+                                            strokeLinecap='round'
+                                            strokeLinejoin='round'
+                                        />
+                                        <path
+                                            d='M6.97333 6C6.97333 4.34315 8.31647 3 9.97333 3C11.6302 3 12.9733 4.34315 12.9733 6'
+                                            strokeWidth='1.5'
+                                            strokeLinecap='round'
+                                            strokeLinejoin='round'
+                                        />
+                                    </svg>
+                                </span>
+                            </Button>
+                        </Flex>
+                    </Flex>
+                </Box>
+            </Box>
+            <Box paddingBottom={'104px'} mt={4}>
+                <Flex justifyContent={'space-between'} paddingBottom={2}>
+                    <Text fontWeight={'700'} fontSize={'2xl'}>
+                        Customers who bought this item also bought
                     </Text>
                 </Flex>
                 <CardSlider books={relatedBooks} />

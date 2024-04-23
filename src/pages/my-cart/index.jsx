@@ -44,7 +44,7 @@ const MyCart = ({ category_list }) => {
 					<Box paddingBottom={'96px'}>
 						<Flex justifyContent={'space-between'} paddingBottom={4}>
 							<Text fontWeight={'700'} fontSize={'3xl'}>
-								Related books
+								Customers also bought
 							</Text>
 						</Flex>
 						<CardSlider books={recommendedBooks} />
