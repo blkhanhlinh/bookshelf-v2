@@ -3,8 +3,15 @@ import Landing from '@/containers/home/landing'
 import Section from '@/containers/home/section'
 import DesktopLayout from '@/components/Layout/DesktopLayout'
 import { getBooksFromAPI, getCategoryList } from '@/api'
+import { useContext } from 'react'
+import { BooksContext } from '@/context/getBooks'
+import Loading from '@/components/Loading'
 
-const Home = ({ books, category_list }) => {
+const Home = () => {
+    const { books, loading } = useContext(BooksContext);
+    if (loading) {
+        return <Loading />
+    }
     return (
         <>
             <Head>
@@ -18,7 +25,6 @@ const Home = ({ books, category_list }) => {
             </Head>
             <DesktopLayout
                 books={books}
-                category_list={category_list}
                 isHomepage={true}
                 className='font-sans'
             >
@@ -28,26 +34,5 @@ const Home = ({ books, category_list }) => {
         </>
     )
 }
-
-export async function getServerSideProps() {
-    const fetchBooks = getBooksFromAPI().catch(error => {
-        console.error('Error fetching books by category', error);
-        return [];
-    });
-
-    const fetchCategories = getCategoryList().catch(error => {
-        console.error('Error fetching category list', error);
-        return [];
-    });
-
-    const [books, category_list] = await Promise.all([fetchBooks, fetchCategories]);
-    return {
-        props: {
-            books,
-            category_list,
-        },
-    }
-}
-
 
 export default Home

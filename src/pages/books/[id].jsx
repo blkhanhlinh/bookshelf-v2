@@ -1,4 +1,4 @@
-import React, { useState, useEffect, Suspense } from 'react'
+import React, { useState, useEffect, Suspense, useContext } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import Head from 'next/head'
 import {
@@ -28,6 +28,7 @@ import {
     addToCart,
 } from '@/redux/cart/cartSlice'
 import Loading from '@/components/Loading'
+import { BooksContext } from '@/context/getBooks'
 
 const BookCard = React.lazy(() => import('@/components/HomeSlider/BookCard'))
 const CardSlider = React.lazy(() =>
@@ -38,17 +39,13 @@ export async function getServerSideProps({ params }) {
     const bookId = params.id
 
     try {
-        const [book, relatedBooks, category_list] = await Promise.all([
+        const [book, relatedBooks] = await Promise.all([
             getBookById(bookId).catch(err => {
                 console.error('Error fetching book:', err)
                 return null
             }),
             getBookRecommendations(bookId).catch(err => {
                 console.error('Error fetching related books:', err)
-                return []
-            }),
-            getCategoryList().catch(err => {
-                console.error('Error fetching category list:', err)
                 return []
             }),
         ])
@@ -63,7 +60,7 @@ export async function getServerSideProps({ params }) {
         }
 
         return {
-            props: { book, relatedBooks, category_list },
+            props: { book, relatedBooks },
         }
     } catch (error) {
         console.error('Error during data fetching:', error)
@@ -76,13 +73,14 @@ export async function getServerSideProps({ params }) {
     }
 }
 
-const BookDetailsPage = ({ book, relatedBooks, category_list }) => {
+const BookDetailsPage = ({ book, relatedBooks }) => {
     if (!book) {
-        return <div>Loading...</div>
+        return <Loading />
     }
     const router = useRouter()
     const dispatch = useDispatch()
     const cart = useSelector(state => state.cart.items)
+    const { categoryList } = useContext(BooksContext)
 
     const [readMore, setReadMore] = useState(false)
     const [quantity, setQuantity] = useState(1)
@@ -166,7 +164,7 @@ const BookDetailsPage = ({ book, relatedBooks, category_list }) => {
     }, [frequentBooks])
 
     return (
-        <DesktopLayout isHomepage={false} category_list={category_list}>
+        <DesktopLayout isHomepage={false} categoryList={categoryList}>
             <Head>
                 <title>{title} - Bookshelf</title>
             </Head>
@@ -423,7 +421,7 @@ const BookDetailsPage = ({ book, relatedBooks, category_list }) => {
                     </Box>
                 </Box>
             )}
-            {relatedBooks.length > 0 && (
+            {relatedBooks.length > 0 ? (
                 <Box paddingBottom={'104px'} mt={4}>
                     <Flex justifyContent={'space-between'} paddingBottom={2}>
                         <Text fontWeight={'700'} fontSize={'2xl'}>
@@ -432,6 +430,8 @@ const BookDetailsPage = ({ book, relatedBooks, category_list }) => {
                     </Flex>
                     <CardSlider books={relatedBooks} />
                 </Box>
+            ) : (
+                <Loading isScreen={false} />
             )}
         </DesktopLayout>
     )

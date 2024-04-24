@@ -10,6 +10,7 @@ import { VisibilityProvider } from '@/context/visibility'
 import React, { Suspense } from 'react'
 import { SpeedInsights } from '@vercel/speed-insights/next'
 import Loading from '@/components/Loading'
+import { BooksProvider } from '@/context/getBooks'
 
 function App({ Component, pageProps }) {
     const { store, persistor } = persistedStore()
@@ -20,10 +21,12 @@ function App({ Component, pageProps }) {
                 <Provider store={store}>
                     <PersistGate loading={<Loading />} persistor={persistor}>
                         <VisibilityProvider>
-                            <Suspense fallback={<Loading />}>
-                                <Component {...pageProps} />
-                                <SpeedInsights />
-                            </Suspense>
+                            <BooksProvider>
+                                <Suspense fallback={<Loading />}>
+                                    <Component {...pageProps} />
+                                    <SpeedInsights />
+                                </Suspense>
+                            </BooksProvider>
                         </VisibilityProvider>
                     </PersistGate>
                 </Provider>

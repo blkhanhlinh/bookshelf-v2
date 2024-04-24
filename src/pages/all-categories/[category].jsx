@@ -8,11 +8,13 @@ import {
     getBooksFromAPI,
     getCategoryList,
 } from '@/api'
-import { useEffect } from 'react'
+import { useContext, useEffect } from 'react'
+import { BooksContext } from '@/context/getBooks'
 
-const CategoryPage = ({ books, category_list }) => {
+const CategoryPage = ({ books }) => {
     const router = useRouter()
     const { category } = router.query
+    const { categoryList } = useContext(BooksContext)
 
     useEffect(() => {
         if (category === 'Best Sellers') {
@@ -36,10 +38,10 @@ const CategoryPage = ({ books, category_list }) => {
         <DesktopLayout
             isHomepage={false}
             books={books}
-            category_list={category_list}
+            categoryList={categoryList}
         >
             <Breadcrumbs category={category} />
-            <DisplayBooks books={books} category_list={category_list} />
+            <DisplayBooks books={books} categoryList={categoryList} />
         </DesktopLayout>
     )
 }
@@ -61,21 +63,14 @@ export async function getServerSideProps(ctx) {
         })
     }
 
-    const categoryListPromise = getCategoryList().catch(error => {
-        console.error('Error fetching category list:', error)
-        return []
-    })
-
     try {
-        const [books, category_list] = await Promise.all([
+        const [books] = await Promise.all([
             booksPromise,
-            categoryListPromise,
         ])
 
         return {
             props: {
                 books: books || [],
-                category_list: category_list || [],
             },
         }
     } catch (error) {

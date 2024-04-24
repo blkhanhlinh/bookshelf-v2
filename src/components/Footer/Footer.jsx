@@ -104,7 +104,7 @@ const InfoIcon = () => {
 	)
 }
 
-const Footer = ({ category_list }) => {
+const Footer = ({ categoryList }) => {
 	// const { categories, loading } = useCategories()
 	const router = useRouter()
 
@@ -158,7 +158,7 @@ const Footer = ({ category_list }) => {
 					</Stack>
 					<Stack spacing={2} align={'flex-start'}>
 						<ListHeader>Product Categories</ListHeader>
-						{category_list.slice(0, 8).map((category, index) => {
+						{categoryList.slice(0, 8).map((category, index) => {
 							return (
 								<Link key={index} href={`/all-categories/${category}`}>
 									{category}

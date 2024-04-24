@@ -19,7 +19,7 @@ import {
 import { useDispatch, useSelector } from 'react-redux'
 import { useEffect, useState } from 'react'
 
-const DisplayBooks = ({ books, category_list, isSearch = false }) => {
+const DisplayBooks = ({ books, categoryList, isSearch = false }) => {
 	const dispatch = useDispatch()
 	const sortedbooks = useSelector(state => state.books)
 	const router = useRouter()
@@ -40,7 +40,7 @@ const DisplayBooks = ({ books, category_list, isSearch = false }) => {
 
 	return (
 		<Flex minW='max-content' marginBottom={8}>
-			<FilterSidebar category_list={category_list} books={books} />
+			<FilterSidebar categoryList={categoryList} books={books} />
 			<Spacer />
 			<Stack direction='column' py={{ base: '6', lg: '8' }}>
 				{isSearch && (

@@ -16,18 +16,18 @@ import PriceFilter from './PriceFilter'
 import RatingFilter from './RatingFilter'
 import AuthorFilter from './AuthorFilter'
 
-const FilterSidebar = ({ books, category_list }) => {
+const FilterSidebar = ({ books, categoryList }) => {
 	const router = useRouter()
 	const [showMore, setShowMore] = useState(false)
 
-	category_list = ['All Categories', 'Best Sellers', 'New Arrivals'].concat(
-		category_list
+	categoryList = ['All Categories', 'Best Sellers', 'New Arrivals'].concat(
+		categoryList
 	)
 	const currentPath = `/all-categories/${router.query.category}`
 
 	const displayedCategories = showMore
-		? category_list
-		: category_list.slice(0, 10)
+		? categoryList
+		: categoryList.slice(0, 10)
 
 	const handleshowMore = () => {
 		setShowMore(!showMore)
@@ -93,7 +93,7 @@ const FilterSidebar = ({ books, category_list }) => {
 							</Link>
 						)
 					})}
-					{category_list.length > 6 && (
+					{categoryList.length > 6 && (
 						<Text
 							onClick={handleshowMore}
 							mt={3}

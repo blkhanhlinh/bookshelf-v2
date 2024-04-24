@@ -10,35 +10,30 @@ import {
 } from '@chakra-ui/react'
 import { connect } from 'react-redux'
 import DisplayBooks from '@/components/Layout/DisplayBooks'
+import { useContext } from 'react'
+import { BooksContext } from '@/context/getBooks'
 
 export async function getServerSideProps() {
 	let books = []
-	let category_list = []
 	try {
 		books = await getBooksFromAPI()
 	} catch (error) {
 		console.log('Error fetching books by category', error)
 	}
-
-	try {
-		category_list = await getCategoryList()
-	} catch (error) {
-		console.log('Error fetching category list', error)
-	}
 	return {
 		props: {
 			books,
-			category_list,
 		},
 	}
 }
 
-const AllCategories = ({ books, category_list }) => {
+const AllCategories = ({ books }) => {
+	const { categoryList } = useContext(BooksContext)
 	return (
 		<DesktopLayout
 			isHomepage={false}
 			books={books}
-			category_list={category_list}
+			categoryList={categoryList}
 		>
 			<Breadcrumb pt='4'>
 				<BreadcrumbItem>
@@ -48,7 +43,7 @@ const AllCategories = ({ books, category_list }) => {
 					<BreadcrumbLink>All Categories</BreadcrumbLink>
 				</BreadcrumbItem>
 			</Breadcrumb>
-			<DisplayBooks books={books} category_list={category_list} />
+			<DisplayBooks books={books} categoryList={categoryList} />
 		</DesktopLayout>
 	)
 }
