@@ -29,6 +29,7 @@ import {
 } from '@/redux/cart/cartSlice'
 import Loading from '@/components/Loading'
 import { BooksContext } from '@/context/getBooks'
+import { useVisibility } from '@/context/visibility'
 
 const BookCard = React.lazy(() => import('@/components/HomeSlider/BookCard'))
 const CardSlider = React.lazy(() =>
@@ -81,6 +82,7 @@ const BookDetailsPage = ({ book, relatedBooks }) => {
     const dispatch = useDispatch()
     const cart = useSelector(state => state.cart.items)
     const { categoryList } = useContext(BooksContext)
+    const { setIsVisible } = useVisibility()
 
     const [readMore, setReadMore] = useState(false)
     const [quantity, setQuantity] = useState(1)
@@ -135,6 +137,7 @@ const BookDetailsPage = ({ book, relatedBooks }) => {
     const addAllToCartHandler = () => {
         frequentBooks.forEach(book => {
             const bookInCart = cart.find(item => item.book_id === book.book_id)
+            setIsVisible(true)
             if (bookInCart) {
                 dispatch(increaseQuantity(book.book_id))
             } else {
