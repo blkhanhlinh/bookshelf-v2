@@ -12,10 +12,11 @@ import { connect } from 'react-redux'
 import DisplayBooks from '@/components/Layout/DisplayBooks'
 import { useContext } from 'react'
 import { BooksContext } from '@/context/getBooks'
+import Loading from '@/components/Loading'
 
 
 const AllCategories = () => {
-	const { books, categoryList } = useContext(BooksContext)
+	const { books, categoryList, loading } = useContext(BooksContext)
 	
 	return (
 		<DesktopLayout
@@ -31,7 +32,11 @@ const AllCategories = () => {
 					<BreadcrumbLink>All Categories</BreadcrumbLink>
 				</BreadcrumbItem>
 			</Breadcrumb>
-			<DisplayBooks books={books} categoryList={categoryList} />
+			{loading ? (
+				<Loading />
+			) : (
+				<DisplayBooks books={books} categoryList={categoryList} />
+			)}
 		</DesktopLayout>
 	)
 }
