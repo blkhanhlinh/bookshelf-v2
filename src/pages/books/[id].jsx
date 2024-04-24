@@ -74,7 +74,7 @@ export async function getServerSideProps({ params }) {
 }
 
 const BookDetailsPage = ({ book, relatedBooks }) => {
-    if (!book) {
+    if (!book || !relatedBooks) {
         return <Loading />
     }
     const router = useRouter()

@@ -13,22 +13,10 @@ import DisplayBooks from '@/components/Layout/DisplayBooks'
 import { useContext } from 'react'
 import { BooksContext } from '@/context/getBooks'
 
-export async function getServerSideProps() {
-	let books = []
-	try {
-		books = await getBooksFromAPI()
-	} catch (error) {
-		console.log('Error fetching books by category', error)
-	}
-	return {
-		props: {
-			books,
-		},
-	}
-}
 
-const AllCategories = ({ books }) => {
-	const { categoryList } = useContext(BooksContext)
+const AllCategories = () => {
+	const { books, categoryList } = useContext(BooksContext)
+	
 	return (
 		<DesktopLayout
 			isHomepage={false}

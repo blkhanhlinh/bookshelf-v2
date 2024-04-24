@@ -35,7 +35,7 @@ const FilterSidebar = ({ books, categoryList }) => {
 
 	return (
 		<Box
-			h='full'
+			h='max-content'
 			w='290px'
 			bg='white'
 			rounded='xl'

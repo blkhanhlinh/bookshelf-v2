@@ -10,6 +10,7 @@ import {
 } from '@/api'
 import { useContext, useEffect } from 'react'
 import { BooksContext } from '@/context/getBooks'
+import Loading from '@/components/Loading'
 
 const CategoryPage = ({ books }) => {
     const router = useRouter()
@@ -41,7 +42,11 @@ const CategoryPage = ({ books }) => {
             categoryList={categoryList}
         >
             <Breadcrumbs category={category} />
-            <DisplayBooks books={books} categoryList={categoryList} />
+            {books.length > 0 ? (
+                <DisplayBooks books={books} categoryList={categoryList} />
+            ) : (
+                <Loading isScreen={false} />
+            )}
         </DesktopLayout>
     )
 }
@@ -64,9 +69,7 @@ export async function getServerSideProps(ctx) {
     }
 
     try {
-        const [books] = await Promise.all([
-            booksPromise,
-        ])
+        const [books] = await Promise.all([booksPromise])
 
         return {
             props: {
