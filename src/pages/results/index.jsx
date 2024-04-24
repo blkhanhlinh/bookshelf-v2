@@ -17,7 +17,6 @@ export async function getServerSideProps(ctx) {
 
 	return {
 		props: {
-			categoryList,
 			books,
 		},
 	}

@@ -11,8 +11,10 @@ import { BooksContext } from '@/context/getBooks'
 import Loading from '@/components/Loading'
 
 const MyCart = () => {
+	const cart = useSelector(state => state.cart.items)
     const recommendedBooks = useSelector(state => state.recommendation.books)
     const { categoryList } = useContext(BooksContext)
+	const isLoading = useSelector(state => state.cart.loading)
 
     return (
         <>
@@ -29,7 +31,7 @@ const MyCart = () => {
                 <Flex minW='max-content'>
                     <CartList />
                 </Flex>
-                {recommendedBooks.length > 0 ? (
+                {recommendedBooks.length > 0 && (
                     <Box paddingBottom={'96px'}>
                         <Flex
                             justifyContent={'space-between'}
@@ -41,9 +43,8 @@ const MyCart = () => {
                         </Flex>
                         <CardSlider books={recommendedBooks} />
                     </Box>
-                ) : (
-                    <Loading isScreen={false} />
-                )}
+				)}
+                {isLoading && <Loading isScreen={false} />}
             </DesktopLayout>
         </>
     )

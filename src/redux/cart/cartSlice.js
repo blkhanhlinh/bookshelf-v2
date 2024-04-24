@@ -7,9 +7,14 @@ export const cartSlice = createSlice({
         items: [],
         totalQuantity: 0,
         totalAmount: 0,
+        loading: false,
     },
     reducers: {
+        setLoading: (state, action) => {
+            state.loading = action.payload
+        },
         addToCart: (state, action) => {
+            state.loading = false
             const newItem = action.payload
             const existingItem = state.items.find(
                 item => item.book_id === newItem.book_id
@@ -30,6 +35,7 @@ export const cartSlice = createSlice({
             }
         },
         addSomeToCart: (state, action) => {
+            state.loading = false
             const newItem = action.payload
             const existingItem = state.items.find(
                 item => item.book_id === newItem.book_id
@@ -93,6 +99,7 @@ export const cartSlice = createSlice({
 })
 
 export const {
+    setLoading,
     addToCart,
     addSomeToCart,
     increaseQuantity,
